@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.ArticleTypeDao">
+    <select id="queryArticleTypeList" resultType="com.cdq.blog.model.ArticleType">
+        SELECT
+        article_type_id,article_type_name,parent_id,priority,click_num,
+        article_type_create_time,article_type_last_edit_time
+        FROM article_type
+        <where>
+            <if test="articleType.articleTypeId !=null">and article_type_id=#{articleType.articleTypeId}</if>
+            <if test="articleType.articleTypeName !=null"> and article_type_name like '%${articleType.articleTypeName}%' </if>
+            <if test="articleType.parentId ==null and articleType.articleTypeName==null"> and parent_id is null </if>
+        </where>
+        order by priority desc
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+    <select id="queryArticleTypeById" resultType="com.cdq.blog.model.ArticleType">
+        SELECT * FROM article_type where article_type_id=#{articleTypeId};
+    </select>
+    <update id="updateArticeType" parameterType="com.cdq.blog.model.ArticleType">
+        update article_type
+        <set>
+            <if test="articleType.articleTypeName != null">article_type_name=#{articleType.articleTypeName},</if>
+            <if test="articleType.parentId != null">parent_id=#{articleType.parentId},</if>
+            <if test="articleType.priority != null">priority=#{articleType.priority},</if>
+            <if test="articleType.clickNum != null">click_num=#{articleType.clickNum},</if>
+            <if test="articleType.articleTypeLastEditTime != null">article_type_last_edit_time=#{articleType.articleTypeLastEditTime}</if>
+        </set>
+        where article_type_id = #{articleType.articleTypeId}
+    </update>
+
+</mapper>

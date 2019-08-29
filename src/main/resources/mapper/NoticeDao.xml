@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.NoticeDao">
+    <select id="queryNoticeList" resultType="com.cdq.blog.model.Notice">
+        SELECT
+        notice_id,notice_content,notice_create_time,notice_last_edit_time,notice_status
+        FROM notice
+        <where>
+            <if test="notice.noticeStatus != null">notice_status=#{notice.noticeStatus}</if>
+            <if test="notice.noticeContent != null">notice_content like '%${notice.noticeContent}%'</if>
+        </where>
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+    <insert id="insertNotice" parameterType="com.cdq.blog.model.Notice">
+        insert into notice(
+        notice_content,notice_create_time)
+        values (
+        #{notice.noticeContent},#{notice.noticeCreateTime})
+    </insert>
+    <update id="updateNotice" parameterType="com.cdq.blog.model.Notice">
+        update notice
+        <set>
+            <if test="notice.noticeContent != null">notice_content=#{notice.noticeContent},</if>
+            <if test="notice.noticeLastEditTime != null">notice_last_edit_time=#{notice.noticeLastEditTime},</if>
+            <if test="notice.noticeStatus != null">notice_status=#{notice.noticeStatus},</if>
+        </set>
+        where notice_id = #{notice.noticeId}
+    </update>
+</mapper>

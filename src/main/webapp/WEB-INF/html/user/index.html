@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link type="text/css" rel="stylesheet" href="resources/css/user/index.css">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href=" resources/css/user/htmleaf-demo.css">
+    <link rel="stylesheet" type="text/css" href=" resources/css/user/bootsnav.css">
+</head>
+<style type="text/css">
+
+    nav.navbar.bootsnav {
+        border: none;
+        margin-bottom: 150px;
+    }
+
+    .navbar-nav {
+        float: left;
+    }
+
+    nav.navbar.bootsnav ul.nav > li > a {
+        color: #474747;
+        text-transform: uppercase;
+        padding: 30px;
+    }
+
+    nav.navbar.bootsnav ul.nav > li:hover {
+        background: #f4f4f4;
+    }
+
+    .nav > li:after {
+        content: "";
+        width: 0;
+        height: 5px;
+        background: #34c9dd;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: all 0.5s ease 0s;
+    }
+
+    .nav > li:hover:after {
+        width: 100%;
+    }
+
+    nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after {
+        content: "+";
+        font-family: 'FontAwesome';
+        font-size: 16px;
+        font-weight: 500;
+        position: absolute;
+        top: 35%;
+        right: 10%;
+        transition: all 0.4s ease 0s;
+    }
+
+    nav.navbar.bootsnav ul.nav > li.dropdown.on > a.dropdown-toggle:after {
+        content: "\f105";
+        transform: rotate(90deg);
+    }
+
+    .dropdown-menu.multi-dropdown {
+        position: absolute;
+        left: -100% !important;
+    }
+
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        border: none;
+    }
+
+    @media only screen and (max-width: 990px) {
+        nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after,
+        nav.navbar.bootsnav ul.nav > li.dropdown.on > a.dropdown-toggle:after {
+            content: " ";
+        }
+
+        .dropdown-menu.multi-dropdown {
+            left: 0 !important;
+        }
+
+        nav.navbar.bootsnav ul.nav > li:hover {
+            background: transparent;
+        }
+
+        nav.navbar.bootsnav ul.nav > li > a {
+            margin: 0;
+        }
+    }
+</style>
+<body>
+<!--顶部导航栏-->
+<div class="top-tool">
+    <!--导航栏-->
+    <div class="demo" style="padding: 2em 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="height: 100px">
+                    <nav class="navbar navbar-default navbar-mobile bootsnav">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target="#navbar-menu">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbar-menu">
+                            <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li><a href="#">Home</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shortcodes</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                            <ul class="dropdown-menu">
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub
+                                                        Menu</a>
+                                                    <ul class="dropdown-menu multi-dropdown">
+                                                        <li><a href="#">Custom Menu</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">Custom Menu</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Custom Menu</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!--用户登录注册以及用户信息展示-->
+                            <div class="user-info">
+                                <a href="#">登录 &nbsp;&nbsp;</a>
+                                <a href="#">注册</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="wrapper">
+    <div class="content">
+        <!--左侧导航栏-->
+        <div class="left-tools">
+            <ul>
+                <li><a href="#">推荐</a></li>
+                <li><a href="#">关注</a></li>
+                <li><a href="#">移动开发</a></li>
+                <li><a href="#">Java</a></li>
+                <li><a href="#">数据库</a></li>
+                <li><a href="#">前端开发</a></li>
+                <li><a href="#">人工智能</a></li>
+                <li><a href="#">后端框架</a></li>
+                <li><a href="#">其他</a></li>
+            </ul>
+        </div>
+        <!--右侧工具栏-->
+        <div class="right-tools">
+            <!--支持站长-->
+            <div style="background-color: white">
+                <div class="pay-way" style="margin: 5px">
+                    <button id="zhifubao">支付宝</button>
+                    <button id="weixin">微信</button>
+                </div>
+                <div class="erweima-zhifubao" style="width: 100%;margin: 5px">
+                    <img src=" resources/img/zhifubao.png" style="width: 90%;">
+                </div>
+                <div class="erweima-weixin" style="width: 100%; margin: 5px">
+                    <img src=" resources/img/weixin.png" style="width: 90%;">
+                </div>
+            </div>
+            <div style="height: 10px"></div>
+            <!--每日寄语-->
+            <div class="every-day-word">
+                <button style="width: 100%; border: none;outline: none;background-color: white">每日寄语</button>
+                <div style="background-color: #6f6f6f;width: 100%;height: 3px"></div>
+                <p>This is some text in a very short paragraph</p>
+            </div>
+            <!--推荐文章-->
+            <div class="article-recommend">
+                <button style="width: 100%; border: none;outline: none;background-color: white">推荐文章</button>
+                <div style="background-color: #6f6f6f;width: 100%;height: 3px"></div>
+                <div class="recom-article">
+                    <!--标题-->
+                    <a href="#" style="color: black">推荐文章测试，这是一篇推荐文章</a>
+                    <!--时间，评论数量，点赞数量-->
+                    <div class="recom-article-info">
+                        <p class="p-left">2019.3.4 &nbsp &nbsp</p>
+                        <p class="p-left">评论:<span style="color: #2fa8ec">222 &nbsp</span></p>
+                        <p>浏览:<span style="color: #2fa8ec">222</span></p>
+                    </div>
+
+                </div>
+                <div class="recom-article">
+                    <!--标题-->
+                    <a href="#" style="color: black;">推荐文章测试，这是一篇推荐文章,累死朕了</a>
+                    <!--时间，评论数量，点赞数量-->
+                    <div class="recom-article-info">
+                        <p class="p-left">2019.3.4 &nbsp &nbsp</p>
+                        <p class="p-left">评论:<span style="color: #2fa8ec">222 &nbsp</span></p>
+                        <p>浏览:<span style="color: #2fa8ec">222</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--主体内容-->
+        <div class="center">
+            <!--轮播图-->
+            <div class="banner">
+                <div id="lunbobox">
+                    <div id="toleft">
+                        &lt;
+                    </div>
+                    <div class="lunbo">
+                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300a.png"></a>
+                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300b.png"></a>
+                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300c.png"></a>
+                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300d.png"></a>
+                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300.png"></a>
+                    </div>
+                    <div id="toright">&gt;</div>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <span></span>
+                </div>
+            </div>
+            <!--公告-->
+            <div class="gonggao">
+                <div class="notice">
+                    <img src=" resources/img/notice.png" style="width: 30px;height: 30px;float: left;margin-top: 20px;margin-left: 50px">
+                    <!-- 只用了两个核心属性，别的可以自行实验 -->
+                    <marquee behavior="scroll" style="width: 86%;margin-top: 10px;font-size: 14px">
+                        通知，现在是滚动文字开发！
+                    </marquee>
+                </div>
+            </div>
+            <!--文章-->
+            <div class="article">
+                <a href="#">开发人员的好习惯,前端开发测试文章主题</a> </br>
+                <p style="overflow: hidden;text-overflow:ellipsis;
+white-space: nowrap;">上个月有水友私信问我，GitHub 上有没有比较好玩的项目可以推荐？我跟他说："有，过两天我整理一下"。
+                    然而，一个月过去了，我把这件事情忘了精光，直至他昨天提醒我才记起2_05.png。</p>
+                <div class="article-bottom">
+                    <div class="yuan" style="background-color: white">
+                        <img src=" resources/img/weixin.png">
+                    </div>
+                    <a href="" style="font-size: 14px">作者昵称</a>
+                    <a href="#" style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">234</a>
+                    <a href="#" style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">234 &nbsp; &nbsp;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">ヅてＤＱ
+        <p>欢迎大家一起交流</p>
+    </div>
+</div>
+
+</body>
+
+<script src=" resources/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src=" resources/js/bootsnav.js"></script>
+<script type="text/javascript" charset="UTF-8" src=" resources/js/user/index.js"></script>
+<script type="text/javascript">
+</script>
+</html>

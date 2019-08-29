@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.ArticleDao">
+    <resultMap id="articleMap" type="com.cdq.blog.model.Article">
+        <id property="articleId" column="article_id"></id>
+        <result property="articleDiscription" column="article_discription"></result>
+        <result property="goodNum" column="good_num"></result>
+        <result property="lookNum" column="look_num"></result>
+        <result property="articleTitle" column="article_title"></result>
+        <result property="articleKeyWord" column="article_key_word"></result>
+        <result property="articleContent" column="article_content"></result>
+        <result property="articleStatus" column="article_status"></result>
+        <result property="articleCreateTime" column="article_create_time"></result>
+        <result property="articleLastEditTime" column="article_last_edit_time"></result>
+        <!--多对一关联-->
+        <association property="user" column="user_id" javaType="com.cdq.blog.model.User">
+            <id property="userId" column="user_id"></id>
+            <result property="nickName" column="nick_name"></result>
+            <result property="userSex" column="user_sex"></result>
+            <result property="userRole" column="user_role"></result>
+            <result property="userExprience" column="user_exprience"></result>
+            <result property="userBirthday" column="user_birthday"></result>
+            <result property="userEmail" column="user_email"></result>
+            <result property="userHeadPhoto" column="user_head_photo"></result>
+        </association>
+        <!--多对一关联-->
+        <association property="articleType" column="article_type_id" javaType="com.cdq.blog.model.ArticleType">
+            <id property="articleTypeId" column="article_type_id"></id>
+            <result property="parentId" column="parent_id"></result>
+            <result property="articleTypeName" column="article_type_name"></result>
+            <result property="priority" column="priority"></result>
+            <result property="clickNum" column="click_num"></result>
+            <result property="articleTypeCreateTime" column="article_type_create_time"></result>
+            <result property="articleTypeLastEditTime" column="article_type_last_edit_time"></result>
+        </association>
+        <!--一对多关联-->
+        <collection property="articleLableList" ofType="com.cdq.blog.model.ArticleLable" column="article_id">
+            <id column="article_lable_id" property="articleLableId"></id>
+            <result column="article_id" property="articleId"></result>
+            <result column="article_lable_name" property="articleLableName"></result>
+            <result column="article_lable_status" property="articleLableStatus"></result>
+            <result column="article_lable_create_time" property="articleLableCreateTime"></result>
+        </collection>
+    </resultMap>
+    <select id="queryLable" resultType="com.cdq.blog.model.ArticleLable">
+        SELECT * FROM article_lable WHERE article_id=#{id}
+    </select>
+    <select id="queryArticleList" resultMap="articleMap">
+        SELECT
+        a.*,
+        u.user_id,
+        u.nick_name,
+        u.user_sex,
+        u.user_role,
+        u.user_exprience,
+        u.user_email,
+        u.user_birthday,
+        u.user_head_photo,
+        art.article_type_id,
+        art.parent_id,
+        art.article_type_name,
+        art.priority,
+        art.click_num,
+        art.article_type_create_time,
+        art.article_type_last_edit_time,
+        al.*
+        FROM
+        article as a
+        LEFT JOIN user as u on a.user_id=u.user_id
+        LEFT JOIN article_type art on a.article_type_id= art.article_type_id,
+        article_lable as al
+        <where>
+            <if test="article.articleId != null">and article_id = #{article.articleId}</if>
+            <if test="article.articleTitle != null and article.articleId == null">and article_title like
+                '%${article.articleTitle}%'
+            </if>
+            <if test="article.articleDiscription != null and article.articleId == null">and article_discription like
+                '%${article.articleDiscription}%'
+            </if>
+        </where>
+        ORDER BY good_num+look_num desc
+        <if test="rowIndex!=0 or pageSize!=0">limit #{rowIndex},#{pageSize}</if>
+    </select>
+    <!--添加文章记录-->
+    <insert id="insertArticle" parameterType="com.cdq.blog.model.Article">
+        insert into
+        article(
+        user_id,article_type_id,article_title,article_discription,article_key_word,article_content,article_create_time
+        ) values (
+        #{user.userId},#{articleTypeId},#{articleTitle},#{articleDiscription},#{articleKeyWord},#{articleContent},#{articleCreateTime}
+        )
+    </insert>
+    <!--修改文章记录-->
+    <update id="updateArticle" parameterType="com.cdq.blog.model.Article">
+        update article
+        <set>
+            <if test="articleTypeId != null">article_type_id = #{articleTypeId}</if>
+            <if test="articleTitle != null">article_type_id = #{articleTitle}</if>
+            <if test="articleDiscription != null">article_type_id = #{articleDiscription}</if>
+            <if test="articleKeyWord != null">article_type_id = #{articleKeyWord}</if>
+            <if test="articleContent != null">article_type_id = #{articleContent}</if>
+        </set>
+        where article_id = #{articleId}
+    </update>
+    <!--修改文章状态-->
+    <update id="updateArticleStatus" parameterType="com.cdq.blog.model.Article">
+        update article
+        set article_status=#{articleStatus}
+        where article_id = #{articleId}
+    </update>
+</mapper>

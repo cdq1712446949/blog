@@ -1,0 +1,259 @@
+/**
+   body标签选择器
+   .top类选择器
+   #id  id选择器
+ */
+/* 顶部导航栏 */
+.top-tool{
+    width: 100%;
+    height: 100px;
+}
+
+/*左侧导航栏(外层:content)*/
+.left-tools{
+    background-color: white;
+    width: 7%;
+    float: left;
+    font-size: 15px;
+    margin-left: 200px;
+    border-radius:20px;
+}
+.left-tools ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+}
+.left-tools ul li{
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.left-tools ul li a{
+    color: black;
+    width: 100%;
+}
+.left-tools ul li:hover{
+    background-color: rgba(135,206,235,0.5);
+}
+/*右侧工具栏*/
+.right-tools{
+    width: 15%;
+    float: right;
+    margin-right: 200px;
+}
+
+/*主体内容*/
+.center{
+    width: 40%;
+    float: left;
+    margin-left: 20px;
+}
+
+.fixednav {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 999;
+}
+
+/* 吸底效果 */
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    margin-top: 20px;
+    flex: 1; // 关键
+}
+.footer{
+    padding:5px 20px 5px 20px;
+    background: #06060b;
+    text-align: center;
+    color: white;
+}
+.footer p{
+    font-size: 16px;
+    color: #6f6f6f;
+}
+/*支付方式按钮*/
+.pay-way{
+    width: 100%;
+    border-radius:20px;
+}
+.pay-way button{
+    background-color: white;
+    text-align: center;
+    width: 40%;
+    border: none;
+    outline: none;
+}
+.pay-way button:hover{
+    background-color: rgba(38,188,213,0.65);
+}
+
+/*每日寄语*/
+.every-day-word{
+    background-color: white;
+    border-radius:20px;
+}
+.every-day-word p{
+    font-size: 13px;
+}
+
+/*推荐文章*/
+.recom-article{
+    background-color: white;
+    display: block;
+    border-radius:20px; /*圆角*/
+}
+.recom-article a{
+    font-size: 15px;
+}
+.recom-article p{
+    font-size: 12px;
+}
+
+/*推荐文章信息*/
+.recom-article-info{
+
+}
+.p-left{
+    float: left;
+}
+.p-right{
+}
+
+/*轮播图*/
+.banner{
+    margin-left: 50px;
+}
+#lunbobox {
+    width:670px;
+    height:300px;
+    position:relative;
+}
+.lunbo {
+    width:670px;
+    height:300px;
+}
+.lunbo img {
+    width:670px;
+    height:300px;
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+#lunbobox ul {
+    position: relative;
+    bottom:10px;
+    right:0px;
+    z-index:5;
+    float: right;
+}
+#lunbobox ul li {
+    cursor:pointer;
+    width:10px;
+    height:4px;
+    border:1px solid #cccccc;
+    float:left;
+    list-style:none;
+    background:#cccccc;
+    text-align:center;
+    margin:0px 5px 0px 0px;
+}
+#toleft {
+    display:none;
+    width:30px;
+    height:100px;
+    font-size:40px;
+    line-height:100px;
+    text-align:center;
+    color:#f4f4f4;
+    /*background:#cccccc;
+    */
+    /*background:url("../images/toleft.jpg")no-repeat center;
+	*/
+    position:absolute;
+    top:90px;
+    left:12px;
+    cursor:pointer;
+    z-index:99;
+    opacity:0.4;
+}
+#toright {
+    display:none;
+    width:30px;
+    height:100px;
+    font-size:40px;
+    line-height:100px;
+    text-align:center;
+    color:#f4f4f4;
+    /*background:#cccccc;
+    */
+    position:absolute;
+    top:90px;
+    right:0px;
+    cursor:pointer;
+    z-index:99;
+    opacity:0.4;
+}
+
+/*公告*/
+.gonggao{
+    width: 100%;
+}
+.notice{
+    width: 100%;
+}
+
+/*文章列表*/
+.article{
+    width: 670px;
+    margin-left: 40px;
+    margin-top: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius:20px;
+}
+.article a{
+    float: left;
+    color: black;
+}
+.article a:hover{
+    color: #019fe8 ;
+}
+.article p{
+    font-size: 14px;
+    color: #6f6f6f;
+}
+.yuan{
+    margin: 10px auto;
+}
+.yuan img{
+    float: left;
+    border-radius:50%;
+    width: 24px;
+    height: 24px;
+}
+.article-bottom{
+    width: 100%;
+    height: 24px;
+    background-color: white;
+}
+
+/*用户信息*/
+.user-info{
+    float: right;
+    margin-right: 30px;
+    margin-top: 25px;
+}
+.user-info a{
+    float: left;
+    color: #1d7db1;
+}
+.user-info a:hover{
+    color: red;
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.UserLevelDao">
+    <select id="queryUserLevelList" resultType="com.cdq.blog.model.UserLevel">
+        select user_level_id,user_level_exprience,user_level_name
+        from user_level
+        order by user_level_id asc
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+    <update id="updateUserLevelById" parameterType="com.cdq.blog.model.UserLevel">
+        update user_level
+        <set>
+            <if test="userLevel.userLevelExprience != null">user_level_exprience=#{userLevel.userLevelExprience},</if>
+            <if test="userLevel.userLevelName != null">user_level_name=#{userLevel.userLevelName}</if>
+        </set>
+        where user_level_id=#{userLevel.userLevelId}
+    </update>
+</mapper>

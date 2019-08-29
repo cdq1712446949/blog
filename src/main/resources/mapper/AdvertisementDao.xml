@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.AdvertisementDao">
+    <select id="queryAdvertisement" resultType="com.cdq.blog.model.Advertisement">
+        SELECT
+        advertisement_id,advertisement_name,advertisement_href,advertisement_photo,advertisement_status,
+        advertisement_create_time,advertisement_last_edit_time
+        FROM advertisement
+        <where>
+            <if test="advertisement.advertisementId != null and advertisement.advertisementId!=0">advertisement_id=#{advertisement.advertisementId}</if>
+            <if test="advertisement.advertisementName != null">advertisement_name like '%${advertisement.advertisementName}%'</if>
+            <if test="advertisement.advertisementStatus != null">advertisement_status=#{advertisement.advertisementStatus}</if>
+        </where>
+        order by advertisement_create_time desc
+        LIMIT #{rowIndex},#{pageSize};
+    </select>
+    <insert id="insertAdvertisement" parameterType="com.cdq.blog.model.Advertisement">
+        INSERT into advertisement(
+        advertisement_name,advertisement_href,advertisement_photo,advertisement_create_time
+        )
+        values (
+        #{advertisement.advertisementName},#{advertisement.advertisementHref},#{advertisement.advertisementPhoto},
+        #{advertisement.advertisementCreateTime}
+        )
+    </insert>
+    <update id="updateAdvertisement" parameterType="com.cdq.blog.model.Advertisement">
+        UPDATE advertisement
+        <set>
+            <if test="advertisementHref != null">advertisement_href=#{advertisementHref}</if>
+            <if test="advertisementName != null">advertisement_name=#{advertisementName}</if>
+            <if test="advertisementPhoto != null">advertisement_photo=#{advertisementPhoto}</if>
+            <if test="advertisementStatus != null">advertisement_status=#{advertisementStatus}</if>
+        </set>
+        where advertisement_id = #{advertisementId}
+    </update>
+</mapper>

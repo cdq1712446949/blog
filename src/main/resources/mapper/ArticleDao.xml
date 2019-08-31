@@ -26,7 +26,7 @@
         <!--多对一关联-->
         <association property="articleType" column="article_type_id" javaType="com.cdq.blog.model.ArticleType">
             <id property="articleTypeId" column="article_type_id"></id>
-            <result property="parentId" column="parent_id"></result>
+            <result property="parentArticleType.articleTypeId" column="parent_id"></result>
             <result property="articleTypeName" column="article_type_name"></result>
             <result property="priority" column="priority"></result>
             <result property="clickNum" column="click_num"></result>
@@ -36,14 +36,14 @@
         <!--一对多关联-->
         <collection property="articleLableList" ofType="com.cdq.blog.model.ArticleLable" column="article_id">
             <id column="article_lable_id" property="articleLableId"></id>
-            <result column="article_id" property="articleId"></result>
+            <result column="article_id" property="article.articleId"></result>
             <result column="article_lable_name" property="articleLableName"></result>
             <result column="article_lable_status" property="articleLableStatus"></result>
             <result column="article_lable_create_time" property="articleLableCreateTime"></result>
         </collection>
     </resultMap>
-    <select id="queryLable" resultType="com.cdq.blog.model.ArticleLable">
-        SELECT * FROM article_lable WHERE article_id=#{id}
+    <select id="queryArticleById" resultMap="articleMap">
+        SELECT * FROM article where article_id=#{articleId}
     </select>
     <select id="queryArticleList" resultMap="articleMap">
         SELECT
@@ -70,15 +70,21 @@
         LEFT JOIN article_type art on a.article_type_id= art.article_type_id,
         article_lable as al
         <where>
-            <if test="article.articleId != null">and article_id = #{article.articleId}</if>
-            <if test="article.articleTitle != null and article.articleId == null">and article_title like
-                '%${article.articleTitle}%'
+            <if test="article.articleType.articleTypeId != null">
+                a.article_type_id = #{article.articleType.articleTypeId}
             </if>
-            <if test="article.articleDiscription != null and article.articleId == null">and article_discription like
-                '%${article.articleDiscription}%'
+            <if test="article.articleCreateTime != null">
+                and year(article_create_time)=year(#{article.articleCreateTime})
+                and month(rticle_create_time)= month(#{article.articleCreateTime})
             </if>
+            <if test="article.articleKeyWord != null ">
+                and article_title like'%${article.articleKeyWord}%'
+                and article_discription like'%${article.articleKeyWord}%'
+                and article_key_word like '%${article.articleKeyWord}%'
+            </if>
+            and article_status=#{article.articleStatus}
         </where>
-        ORDER BY good_num+look_num desc
+        ORDER BY #{sortColumn} #{ad}
         <if test="rowIndex!=0 or pageSize!=0">limit #{rowIndex},#{pageSize}</if>
     </select>
     <!--添加文章记录-->
@@ -95,10 +101,10 @@
         update article
         <set>
             <if test="articleTypeId != null">article_type_id = #{articleTypeId}</if>
-            <if test="articleTitle != null">article_type_id = #{articleTitle}</if>
-            <if test="articleDiscription != null">article_type_id = #{articleDiscription}</if>
-            <if test="articleKeyWord != null">article_type_id = #{articleKeyWord}</if>
-            <if test="articleContent != null">article_type_id = #{articleContent}</if>
+            <if test="articleTitle != null">article_title = #{articleTitle}</if>
+            <if test="articleDiscription != null">article_discription = #{articleDiscription}</if>
+            <if test="articleKeyWord != null">article_key_word = #{articleKeyWord}</if>
+            <if test="articleContent != null">article_content = #{articleContent}</if>
         </set>
         where article_id = #{articleId}
     </update>

@@ -30,4 +30,11 @@ public interface ArticleTypeService {
      */
     ArticleTypeExecution getFirstArticleTypeList();
 
+    /**
+     * 通过id获取文章类型记录
+     * @param articleType
+     * @return
+     */
+    ArticleTypeExecution getArticleTypeById(ArticleType articleType);
+
 }

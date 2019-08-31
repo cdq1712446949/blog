@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class UserReport {
     private Integer userReportId;
-
-    private Integer reportUserId;
-
-    private Integer reprotedUserId;
-
-    private Integer articleId;
-
-    private Integer userCommentId;
-
-    private Byte reportReasonId;
-
+    //举报人
+    private User reportUser;
+    //被举报人
+    private User reprotedUser;
+    //被举报文章
+    private Article article;
+    //被举报评论
+    private UserComment userComment;
+    //举报原因
+    private ReportReason reportReason;
+    //举报原因描述
     private String userReportContent;
 
     private Byte userReportStatus;
@@ -31,44 +31,44 @@ public class UserReport {
         this.userReportId = userReportId;
     }
 
-    public Integer getReportUserId() {
-        return reportUserId;
+    public User getReportUser() {
+        return reportUser;
     }
 
-    public void setReportUserId(Integer reportUserId) {
-        this.reportUserId = reportUserId;
+    public void setReportUser(User reportUser) {
+        this.reportUser = reportUser;
     }
 
-    public Integer getReprotedUserId() {
-        return reprotedUserId;
+    public User getReprotedUser() {
+        return reprotedUser;
     }
 
-    public void setReprotedUserId(Integer reprotedUserId) {
-        this.reprotedUserId = reprotedUserId;
+    public void setReprotedUser(User reprotedUser) {
+        this.reprotedUser = reprotedUser;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
-    public Integer getUserCommentId() {
-        return userCommentId;
+    public UserComment getUserComment() {
+        return userComment;
     }
 
-    public void setUserCommentId(Integer userCommentId) {
-        this.userCommentId = userCommentId;
+    public void setUserComment(UserComment userComment) {
+        this.userComment = userComment;
     }
 
-    public Byte getReportReasonId() {
-        return reportReasonId;
+    public ReportReason getReportReason() {
+        return reportReason;
     }
 
-    public void setReportReasonId(Byte reportReasonId) {
-        this.reportReasonId = reportReasonId;
+    public void setReportReason(ReportReason reportReason) {
+        this.reportReason = reportReason;
     }
 
     public String getUserReportContent() {

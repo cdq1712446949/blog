@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class UserComment {
     private Integer userCommentId;
-
-    private Integer articleId;
-
-    private Integer commentId;
-
-    private Integer fromUserId;
-
-    private Integer toUserId;
+    //评论所属文章
+    private Article article;
+    //评论所属评论
+    private UserComment userComment;
+    //发表评论的用户
+    private User fromUser;
+    //被回复用户
+    private User toUser;
 
     private Byte userCommentStatus;
 
@@ -27,36 +27,36 @@ public class UserComment {
         this.userCommentId = userCommentId;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
-    public Integer getCommentId() {
-        return commentId;
+    public UserComment getUserComment() {
+        return userComment;
     }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
+    public void setUserComment(UserComment userComment) {
+        this.userComment = userComment;
     }
 
-    public Integer getFromUserId() {
-        return fromUserId;
+    public User getFromUser() {
+        return fromUser;
     }
 
-    public void setFromUserId(Integer fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
     }
 
-    public Integer getToUserId() {
-        return toUserId;
+    public User getToUser() {
+        return toUser;
     }
 
-    public void setToUserId(Integer toUserId) {
-        this.toUserId = toUserId;
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     public Byte getUserCommentStatus() {

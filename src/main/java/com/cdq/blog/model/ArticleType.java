@@ -9,8 +9,6 @@ import java.util.Date;
 public class ArticleType implements Serializable {
     private Short articleTypeId;
 
-    private Short parentId;
-
     private String articleTypeName;
 
     private Byte priority;
@@ -38,14 +36,6 @@ public class ArticleType implements Serializable {
 
     public void setArticleTypeId(Short articleTypeId) {
         this.articleTypeId = articleTypeId;
-    }
-
-    public Short getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Short parentId) {
-        this.parentId = parentId;
     }
 
     public String getArticleTypeName() {

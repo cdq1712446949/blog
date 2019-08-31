@@ -5,11 +5,11 @@ import java.util.Date;
 public class Photo {
     private Integer photoId;
 
-    private Byte photoTypeId;
+    private PhotoType photoTypeId;
 
-    private Integer articleId;
+    private Article article;
 
-    private Integer userReportId;
+    private UserReport userReport;
 
     private String photoName;
 
@@ -29,28 +29,28 @@ public class Photo {
         this.photoId = photoId;
     }
 
-    public Byte getPhotoTypeId() {
+    public PhotoType getPhotoTypeId() {
         return photoTypeId;
     }
 
-    public void setPhotoTypeId(Byte photoTypeId) {
+    public void setPhotoTypeId(PhotoType photoTypeId) {
         this.photoTypeId = photoTypeId;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
-    public Integer getUserReportId() {
-        return userReportId;
+    public UserReport getUserReport() {
+        return userReport;
     }
 
-    public void setUserReportId(Integer userReportId) {
-        this.userReportId = userReportId;
+    public void setUserReport(UserReport userReport) {
+        this.userReport = userReport;
     }
 
     public String getPhotoName() {

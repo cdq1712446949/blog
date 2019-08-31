@@ -3,11 +3,19 @@ package com.cdq.blog.model;
 public class PersonInfo {
     private Integer personInfoId;
 
-    private Integer userId;
+    private User user;
 
     private Byte secretStatus;
 
     private Byte sexStatus;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getPersonInfoId() {
         return personInfoId;
@@ -15,14 +23,6 @@ public class PersonInfo {
 
     public void setPersonInfoId(Integer personInfoId) {
         this.personInfoId = personInfoId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Byte getSecretStatus() {

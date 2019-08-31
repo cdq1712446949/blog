@@ -1,10 +1,12 @@
 package com.cdq.blog.service.impl;
 
 import com.cdq.blog.dao.ArticleTypeDao;
+import com.cdq.blog.dto.ArticleExecution;
 import com.cdq.blog.dto.ArticleTypeExecution;
 import com.cdq.blog.model.ArticleType;
 import com.cdq.blog.service.ArticleTypeService;
 import com.cdq.blog.state.ArticleTypeStateEnum;
+import com.cdq.blog.state.BaseStateEnum;
 import com.cdq.blog.unit.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -83,4 +85,21 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
         List<ArticleType> list=articleTypeDao.queryArticleTypeList(articleType,0,20);
         return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS,list);
     }
+
+    @Override
+    public ArticleTypeExecution getArticleTypeById(ArticleType articleType) {
+        //校验参数
+        if (articleType.getParentArticleType().getArticleTypeId()==null||articleType.getParentArticleType().getArticleTypeId()==0){
+            return new ArticleTypeExecution(ArticleTypeStateEnum.EMPTY_ID);
+        }
+        //请求数据库获取数据
+        try {
+            ArticleType articleType1=articleTypeDao.queryArticleTypeById(articleType);
+            return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS,articleType1);
+        }catch (Exception e){
+            return new ArticleTypeExecution(ArticleTypeStateEnum.INNER_ERROR);
+        }
+    }
+
+
 }

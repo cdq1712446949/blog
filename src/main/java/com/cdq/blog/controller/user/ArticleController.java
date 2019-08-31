@@ -14,6 +14,7 @@ public class ArticleController {
      * 获取文章列表
      * 用户获取：
      * 管理员获取：
+     * 1.查询内容赋值给keyword
      * @return
      */
     @RequestMapping(value = "/getarticlelist",method = RequestMethod.GET)

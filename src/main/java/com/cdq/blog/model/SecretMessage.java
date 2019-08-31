@@ -5,9 +5,9 @@ import java.util.Date;
 public class SecretMessage {
     private Integer secretMessageId;
 
-    private Integer fromUserId;
+    private User fromUser;
 
-    private Integer toUserId;
+    private User toUser;
 
     private Byte isSee;
 
@@ -23,20 +23,20 @@ public class SecretMessage {
         this.secretMessageId = secretMessageId;
     }
 
-    public Integer getFromUserId() {
-        return fromUserId;
+    public User getFromUser() {
+        return fromUser;
     }
 
-    public void setFromUserId(Integer fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
     }
 
-    public Integer getToUserId() {
-        return toUserId;
+    public User getToUser() {
+        return toUser;
     }
 
-    public void setToUserId(Integer toUserId) {
-        this.toUserId = toUserId;
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     public Byte getIsSee() {

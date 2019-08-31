@@ -5,7 +5,7 @@ import java.util.Date;
 public class UserRank {
     private Byte userRankId;
 
-    private Byte userLevelId;
+    private UserLevel userLevel;
 
     private Date userRankCreateTime;
 
@@ -21,12 +21,12 @@ public class UserRank {
         this.userRankId = userRankId;
     }
 
-    public Byte getUserLevelId() {
-        return userLevelId;
+    public UserLevel getUserLevel() {
+        return userLevel;
     }
 
-    public void setUserLevelId(Byte userLevelId) {
-        this.userLevelId = userLevelId;
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
     }
 
     public Date getUserRankCreateTime() {

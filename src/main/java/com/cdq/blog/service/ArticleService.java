@@ -12,7 +12,7 @@ public interface ArticleService {
      * @param pageSize
      * @return
      */
-    ArticleExecution getArticleList(Article article, int pageIndex, int pageSize);
+    ArticleExecution getArticleList(Article article, int pageIndex, int pageSize,String sortColumn,String ad);
 
     /**
      * 添加文章记录
@@ -35,4 +35,10 @@ public interface ArticleService {
      */
     ArticleExecution changeArticleStatus(Article article);
 
+    /**
+     * 通过id查询文章记录
+     * @param article
+     * @return
+     */
+    ArticleExecution getArticleById(Article article);
 }

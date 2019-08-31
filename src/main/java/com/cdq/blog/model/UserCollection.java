@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class UserCollection {
     private Integer collectionId;
-
-    private Integer userId;
-
-    private Integer articleId;
+    //用户所关注的用户
+    private User user;
+    //用户所关注的文章
+    private Article article;
 
     private Date collectionCreateTime;
 
@@ -19,20 +19,20 @@ public class UserCollection {
         this.collectionId = collectionId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public Date getCollectionCreateTime() {

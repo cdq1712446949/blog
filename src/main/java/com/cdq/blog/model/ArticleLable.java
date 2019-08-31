@@ -5,13 +5,22 @@ import java.util.Date;
 public class ArticleLable {
     private Integer articleLableId;
 
-    private Integer articleId;
-
     private String articleLableName;
 
     private Date articleLableCreateTime;
 
     private Byte articleLableStatus;
+
+    //所属文章
+    private Article article;
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 
     public Byte getArticleLableStatus() {
         return articleLableStatus;
@@ -27,14 +36,6 @@ public class ArticleLable {
 
     public void setArticleLableId(Integer articleLableId) {
         this.articleLableId = articleLableId;
-    }
-
-    public Integer getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
     }
 
     public String getArticleLableName() {

@@ -5,7 +5,7 @@ import java.util.Date;
 public class SystemMessage {
     private Integer systemMessageId;
 
-    private Integer toUserId;
+    private User toUser;
 
     private String messageContent;
 
@@ -21,12 +21,12 @@ public class SystemMessage {
         this.systemMessageId = systemMessageId;
     }
 
-    public Integer getToUserId() {
-        return toUserId;
+    public User getToUser() {
+        return toUser;
     }
 
-    public void setToUserId(Integer toUserId) {
-        this.toUserId = toUserId;
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     public String getMessageContent() {

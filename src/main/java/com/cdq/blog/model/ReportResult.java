@@ -3,7 +3,7 @@ package com.cdq.blog.model;
 public class ReportResult {
     private Integer reportResultId;
 
-    private Integer userReportId;
+    private UserReport userReport;
 
     private Byte resultReportStatus;
 
@@ -17,12 +17,12 @@ public class ReportResult {
         this.reportResultId = reportResultId;
     }
 
-    public Integer getUserReportId() {
-        return userReportId;
+    public UserReport getUserReport() {
+        return userReport;
     }
 
-    public void setUserReportId(Integer userReportId) {
-        this.userReportId = userReportId;
+    public void setUserReport(UserReport userReport) {
+        this.userReport = userReport;
     }
 
     public Byte getResultReportStatus() {

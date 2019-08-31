@@ -7,13 +7,9 @@ import java.util.List;
 public class Article {
     private Integer articleId;
 
-    private Integer userId;
-
     private Short goodNum;
 
     private Short lookNum;
-
-    private Short articleTypeId;
 
     private String articleTitle;
 
@@ -67,14 +63,6 @@ public class Article {
         this.articleId = articleId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     public Short getGoodNum() {
         return goodNum;
     }
@@ -89,14 +77,6 @@ public class Article {
 
     public void setLookNum(Short lookNum) {
         this.lookNum = lookNum;
-    }
-
-    public Short getArticleTypeId() {
-        return articleTypeId;
-    }
-
-    public void setArticleTypeId(Short articleTypeId) {
-        this.articleTypeId = articleTypeId;
     }
 
     public String getArticleTitle() {

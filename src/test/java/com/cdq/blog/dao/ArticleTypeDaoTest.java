@@ -20,7 +20,10 @@ public class ArticleTypeDaoTest {
     @Test
     public void testQueryArticleTypeList(){
         ArticleType articleType=new ArticleType();
-        articleType.setArticleTypeName("J");
+//        articleType.setArticleTypeName("J");
+        ArticleType parentArticleType=new ArticleType();
+        parentArticleType.setArticleTypeId((short) 7);
+        articleType.setParentArticleType(parentArticleType);
         List<ArticleType> list=articleTypeDao.queryArticleTypeList(articleType,0,5);
         for (ArticleType a:list){
             System.out.println(a.getArticleTypeName());

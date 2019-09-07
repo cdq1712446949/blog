@@ -12,6 +12,7 @@
         <result property="articleStatus" column="article_status"></result>
         <result property="articleCreateTime" column="article_create_time"></result>
         <result property="articleLastEditTime" column="article_last_edit_time"></result>
+        <result property="commentNum" column="comment_num"></result>
         <!--多对一关联-->
         <association property="user" column="user_id" javaType="com.cdq.blog.model.User">
             <id property="userId" column="user_id"></id>
@@ -43,9 +44,6 @@
         </collection>
     </resultMap>
     <select id="queryArticleById" resultMap="articleMap">
-        SELECT * FROM article where article_id=#{articleId}
-    </select>
-    <select id="queryArticleList" resultMap="articleMap">
         SELECT
         a.*,
         u.user_id,
@@ -69,6 +67,35 @@
         LEFT JOIN user as u on a.user_id=u.user_id
         LEFT JOIN article_type art on a.article_type_id= art.article_type_id,
         article_lable as al
+        where a.article_id=#{articleId}
+    </select>
+    <select id="queryArticleList" resultMap="articleMap">
+        SELECT
+        a.*,
+        u.user_id,
+        u.nick_name,
+        u.user_sex,
+        u.user_role,
+        u.user_exprience,
+        u.user_email,
+        u.user_birthday,
+        u.user_head_photo,
+        art.article_type_id,
+        art.parent_id,
+        art.article_type_name,
+        art.priority,
+        art.click_num,
+        art.article_type_create_time,
+        art.article_type_last_edit_time,
+        al.*,
+        c.comment_num
+        FROM
+        article as a
+        LEFT JOIN user as u on a.user_id=u.user_id
+        LEFT JOIN article_type art on a.article_type_id= art.article_type_id
+        LEFT JOIN (select distinct(article_id),count(article_id) as comment_num from user_comment
+        group by article_id) as c on a.article_id=c.article_id,
+        article_lable as al
         <where>
             <if test="article.articleType.articleTypeId != null">
                 a.article_type_id = #{article.articleType.articleTypeId}
@@ -82,7 +109,7 @@
                 and article_discription like'%${article.articleKeyWord}%'
                 and article_key_word like '%${article.articleKeyWord}%'
             </if>
-            and article_status=#{article.articleStatus}
+            <if test="article.articleStatus != null">and article_status=#{article.articleStatus}</if>
         </where>
         ORDER BY #{sortColumn} #{ad}
         <if test="rowIndex!=0 or pageSize!=0">limit #{rowIndex},#{pageSize}</if>
@@ -93,20 +120,22 @@
         article(
         user_id,article_type_id,article_title,article_discription,article_key_word,article_content,article_create_time
         ) values (
-        #{user.userId},#{articleTypeId},#{articleTitle},#{articleDiscription},#{articleKeyWord},#{articleContent},#{articleCreateTime}
+        #{user.userId},#{articleType.articleTypeId},#{articleTitle},#{articleDiscription},#{articleKeyWord},#{articleContent},#{articleCreateTime}
         )
     </insert>
     <!--修改文章记录-->
     <update id="updateArticle" parameterType="com.cdq.blog.model.Article">
         update article
         <set>
-            <if test="articleTypeId != null">article_type_id = #{articleTypeId}</if>
+            <if test="articleType!=null and articleType.articleTypeId != null">article_type_id =
+                #{articleType.articleTypeId}
+            </if>
             <if test="articleTitle != null">article_title = #{articleTitle}</if>
             <if test="articleDiscription != null">article_discription = #{articleDiscription}</if>
             <if test="articleKeyWord != null">article_key_word = #{articleKeyWord}</if>
             <if test="articleContent != null">article_content = #{articleContent}</if>
         </set>
-        where article_id = #{articleId}
+        where article_id = #{articleId} and user_id=#{user.userId}
     </update>
     <!--修改文章状态-->
     <update id="updateArticleStatus" parameterType="com.cdq.blog.model.Article">

@@ -12,4 +12,10 @@ public class SuperUserController {
         return "user/index";
     }
 
+    //返回博客展示页面
+    @RequestMapping(value = "/blogcontent",method = RequestMethod.GET)
+    public String blogContent(){
+        return "user/blog";
+    }
+
 }

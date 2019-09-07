@@ -30,6 +30,26 @@ public class Article {
     private User user;
     //文章类型
     private ArticleType articleType;
+    //评论数量
+    private int commentNum;
+    //评论列表
+    private List<UserComment> userCommentList;
+
+    public List<UserComment> getUserCommentList() {
+        return userCommentList;
+    }
+
+    public void setUserCommentList(List<UserComment> userCommentList) {
+        this.userCommentList = userCommentList;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
+    }
 
     public User getUser() {
         return user;

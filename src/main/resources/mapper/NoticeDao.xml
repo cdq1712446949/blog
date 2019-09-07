@@ -9,6 +9,7 @@
             <if test="notice.noticeStatus != null">notice_status=#{notice.noticeStatus}</if>
             <if test="notice.noticeContent != null">notice_content like '%${notice.noticeContent}%'</if>
         </where>
+        order by notice_create_time desc
         LIMIT #{rowIndex},#{pageSize};
     </select>
     <insert id="insertNotice" parameterType="com.cdq.blog.model.Notice">

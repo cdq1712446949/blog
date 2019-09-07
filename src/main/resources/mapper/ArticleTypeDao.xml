@@ -8,7 +8,7 @@
         <result column="click_num" property="clickNum"></result>
         <result column="article_type_create_time" property="articleTypeCreateTime"></result>
         <result column="article_type_last_edit_time" property="articleTypeLastEditTime"></result>
-        <association  property="parentArticleType" javaType="com.cdq.blog.model.ArticleType">
+        <association property="parentArticleType" javaType="com.cdq.blog.model.ArticleType">
             <id column="b_article_type_id" property="articleTypeId"></id>
             <result column="b_article_type_name" property="articleTypeName"></result>
             <result column="b_priority" property="priority"></result>
@@ -36,15 +36,35 @@
         on a.parent_id=b.article_type_id
         <where>
             <if test="articleType.articleTypeId !=null">and a.article_type_id=#{articleType.articleTypeId}</if>
-            <if test="articleType.articleTypeName !=null"> and a.article_type_name like '%${articleType.articleTypeName}%' </if>
-            <if test="articleType.parentArticleType.articleTypeId ==null"> and a.parent_id is null </if>
-            <if test="articleType.parentArticleType.articleTypeId !=null"> and a.parent_id=#{articleType.parentArticleType.articleTypeId}</if>
+            <if test="articleType.articleTypeName !=null">and a.article_type_name like
+                '%${articleType.articleTypeName}%'
+            </if>
+            <if test="articleType.parentArticleType!=null and articleType.parentArticleType.articleTypeId ==null">and a.parent_id is null</if>
+            <if test="articleType.parentArticleType!=null and articleType.parentArticleType.articleTypeId !=null">and
+                a.parent_id=#{articleType.parentArticleType.articleTypeId}
+            </if>
         </where>
         order by a.priority desc
         LIMIT #{rowIndex},#{pageSize};
     </select>
     <select id="queryArticleTypeById" resultMap="articleTypeMap">
-        SELECT * FROM article_type where article_type_id=#{articleTypeId};
+       SELECT
+        a.article_type_id,
+        a.article_type_name,
+        a.priority,
+        a.click_num,
+        a.article_type_create_time,
+        a.article_type_last_edit_time,
+        b.article_type_id as b_article_type_id,
+        b.article_type_name as b_article_type_name,
+        b.priority as b_priority,
+        b.click_num as b_click_num,
+        b.article_type_create_time as b_article_type_create_time,
+        b.article_type_last_edit_time as b_article_type_last_edit_time
+        FROM
+        article_type as a left join article_type as b
+        on a.parent_id=b.article_type_id
+        where a.article_type_id=#{articleTypeId};
     </select>
     <update id="updateArticeType" parameterType="com.cdq.blog.model.ArticleType">
         update article_type
@@ -53,7 +73,9 @@
             <if test="articleType.parentId != null">parent_id=#{articleType.parentId},</if>
             <if test="articleType.priority != null">priority=#{articleType.priority},</if>
             <if test="articleType.clickNum != null">click_num=#{articleType.clickNum},</if>
-            <if test="articleType.articleTypeLastEditTime != null">article_type_last_edit_time=#{articleType.articleTypeLastEditTime}</if>
+            <if test="articleType.articleTypeLastEditTime != null">
+                article_type_last_edit_time=#{articleType.articleTypeLastEditTime}
+            </if>
         </set>
         where article_type_id = #{articleType.articleTypeId}
     </update>

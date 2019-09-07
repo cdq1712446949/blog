@@ -1,12 +1,10 @@
 package com.cdq.blog.service.impl;
 
 import com.cdq.blog.dao.ArticleTypeDao;
-import com.cdq.blog.dto.ArticleExecution;
 import com.cdq.blog.dto.ArticleTypeExecution;
 import com.cdq.blog.model.ArticleType;
 import com.cdq.blog.service.ArticleTypeService;
 import com.cdq.blog.state.ArticleTypeStateEnum;
-import com.cdq.blog.state.BaseStateEnum;
 import com.cdq.blog.unit.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -30,10 +28,14 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
     private ArticleTypeDao articleTypeDao;
 
     @Override
-    public ArticleTypeExecution getArticleTypeList(ArticleType articleType,int page,int pageSize) {
+    public ArticleTypeExecution getArticleTypeList(ArticleType articleType, int page, int pageSize) {
         //校验属性信息
+        if (articleType.getParentArticleType() == null) {
+            //添加parentArticle属性值
+            articleType.setParentArticleType(new ArticleType());
+        }
         List<ArticleType> list = articleTypeDao.queryArticleTypeList(
-                articleType,PageUtil.pageToRowIndex(page,pageSize),pageSize);
+                articleType, PageUtil.pageToRowIndex(page, pageSize), pageSize);
         if (list.size() == 0) {
             return new ArticleTypeExecution(ArticleTypeStateEnum.EMPTY_RESULT);
         }
@@ -48,6 +50,7 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
 
     /**
      * 修改文章类型数据库记录:文章类型id不能为空,创建时间不能修改
+     *
      * @param articleType
      * @return
      */
@@ -72,31 +75,33 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
             } else {
                 return new ArticleTypeExecution(ArticleTypeStateEnum.INNER_ERROR);
             }
-        }catch (Exception e){
-            throw new RuntimeException("修改文章类型记录失败，错误信息："+e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("修改文章类型记录失败，错误信息：" + e.getMessage());
         }
     }
 
-    @Cacheable(value = "firstArticleTypeList" )
+    @Cacheable(value = "firstArticleTypeList")
     @Override
     public ArticleTypeExecution getFirstArticleTypeList() {
 //        System.out.println("获取一级文章类型列表没有调用缓存");
-        ArticleType articleType=new ArticleType();
-        List<ArticleType> list=articleTypeDao.queryArticleTypeList(articleType,0,20);
-        return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS,list);
+        ArticleType articleType = new ArticleType();
+        //添加parentArticle属性值
+        articleType.setParentArticleType(new ArticleType());
+        List<ArticleType> list = articleTypeDao.queryArticleTypeList(articleType, 0, 20);
+        return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS, list);
     }
 
     @Override
     public ArticleTypeExecution getArticleTypeById(ArticleType articleType) {
         //校验参数
-        if (articleType.getParentArticleType().getArticleTypeId()==null||articleType.getParentArticleType().getArticleTypeId()==0){
+        if (articleType.getParentArticleType().getArticleTypeId() == null || articleType.getParentArticleType().getArticleTypeId() == 0) {
             return new ArticleTypeExecution(ArticleTypeStateEnum.EMPTY_ID);
         }
         //请求数据库获取数据
         try {
-            ArticleType articleType1=articleTypeDao.queryArticleTypeById(articleType);
-            return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS,articleType1);
-        }catch (Exception e){
+            ArticleType articleType1 = articleTypeDao.queryArticleTypeById(articleType);
+            return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS, articleType1);
+        } catch (Exception e) {
             return new ArticleTypeExecution(ArticleTypeStateEnum.INNER_ERROR);
         }
     }

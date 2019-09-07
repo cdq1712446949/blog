@@ -51,7 +51,7 @@ public class IndexController {
     @RequestMapping(value = "/noticelist",method = RequestMethod.GET)
     public Map<String,Object> getNoticeList(){
         Map<String,Object> modelMap=new HashMap<>();
-        //TODO 前端获取参数
+        //TODO 前端获取参数(后期需要公告时修改，想不起来公告有什么用)
         Notice notice=new Notice();
         notice.setNoticeStatus((byte) 0);
         NoticeExecution noticeExecution=noticeService.getNoticeList(notice,1,1);

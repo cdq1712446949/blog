@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>ヅてＤＱ</title>
     <link type="text/css" rel="stylesheet" href="resources/css/user/index.css">
+    <!--导航栏css文件-->
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href=" resources/css/user/htmleaf-demo.css">
@@ -90,6 +91,7 @@
         }
     }
 </style>
+
 <body>
 <!--顶部导航栏-->
 <div class="top-tool">
@@ -160,16 +162,8 @@
     <div class="content">
         <!--左侧导航栏-->
         <div class="left-tools">
-            <ul>
-                <li><a href="#">推荐</a></li>
-                <li><a href="#">关注</a></li>
-                <li><a href="#">移动开发</a></li>
-                <li><a href="#">Java</a></li>
-                <li><a href="#">数据库</a></li>
-                <li><a href="#">前端开发</a></li>
-                <li><a href="#">人工智能</a></li>
-                <li><a href="#">后端框架</a></li>
-                <li><a href="#">其他</a></li>
+            <ul class="left-tools-ul">
+
             </ul>
         </div>
         <!--右侧工具栏-->
@@ -230,46 +224,43 @@
                         &lt;
                     </div>
                     <div class="lunbo">
-                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300a.png"></a>
-                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300b.png"></a>
-                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300c.png"></a>
-                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300d.png"></a>
-                        <a href="#"><img src="http://www.jq22.com/img/cs/500x300.png"></a>
+
                     </div>
                     <div id="toright">&gt;</div>
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
+                    <!--<ul id="lunbo-ul">-->
+
+                    <!--</ul>-->
                     <span></span>
                 </div>
             </div>
             <!--公告-->
             <div class="gonggao">
                 <div class="notice">
-                    <img src=" resources/img/notice.png" style="width: 30px;height: 30px;float: left;margin-top: 20px;margin-left: 50px">
+                    <img src=" resources/img/notice.png"
+                         style="width: 30px;height: 30px;float: left;margin-top: 10px;margin-left: 50px">
                     <!-- 只用了两个核心属性，别的可以自行实验 -->
-                    <marquee behavior="scroll" style="width: 86%;margin-top: 10px;font-size: 14px">
-                        通知，现在是滚动文字开发！
+                    <marquee behavior="scroll" style="width: 86%;margin-top: 15px;font-size: 14px" id="notice">
+                        <!--通知，现在是滚动文字开发！-->
                     </marquee>
                 </div>
             </div>
             <!--文章-->
-            <div class="article">
-                <a href="#">开发人员的好习惯,前端开发测试文章主题</a> </br>
-                <p style="overflow: hidden;text-overflow:ellipsis;
+            <div id="article">
+                <div class="article">
+                    <a href="/cdqblog/blogcontent">开发人员的好习惯,前端开发测试文章主题</a> </br>
+                    <p style="overflow: hidden;text-overflow:ellipsis;
 white-space: nowrap;">上个月有水友私信问我，GitHub 上有没有比较好玩的项目可以推荐？我跟他说："有，过两天我整理一下"。
-                    然而，一个月过去了，我把这件事情忘了精光，直至他昨天提醒我才记起2_05.png。</p>
-                <div class="article-bottom">
-                    <div class="yuan" style="background-color: white">
-                        <img src=" resources/img/weixin.png">
+                        然而，一个月过去了，我把这件事情忘了精光，直至他昨天提醒我才记起2_05.png。</p>
+                    <div class="article-bottom">
+                        <div class="yuan" style="background-color: white">
+                            <img src=" resources/img/weixin.png">
+                        </div>
+                        <a href="#" style="font-size: 14px">作者昵称</a>
+                        <a href="#" style="float: right"> <img src=" resources/img/comment.png"
+                                                               style="width: 20px;height: 20px;">234</a>
+                        <a href="#" style="float: right"> <img src=" resources/img/zan.png"
+                                                               style="width: 20px;height: 20px;">234 &nbsp; &nbsp;</a>
                     </div>
-                    <a href="" style="font-size: 14px">作者昵称</a>
-                    <a href="#" style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">234</a>
-                    <a href="#" style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">234 &nbsp; &nbsp;</a>
                 </div>
             </div>
         </div>
@@ -284,6 +275,7 @@ white-space: nowrap;">上个月有水友私信问我，GitHub 上有没有比较
 <script src=" resources/js/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src=" resources/js/bootsnav.js"></script>
+<script type="text/javascript" src=" resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript" charset="UTF-8" src=" resources/js/user/index.js"></script>
 <script type="text/javascript">
 </script>

@@ -3,6 +3,11 @@ package com.cdq.blog.model;
 import java.util.Date;
 
 public class User {
+
+    public final static int SUPER_ADMIN = 0;//超级管理员
+    public final static int ADMIN = 1;//普通管理员
+    public final static int USER = 2;//用户
+
     private Integer userId;
 
     private String userName;
@@ -32,6 +37,17 @@ public class User {
     private Date userLastLoginTime;
 
     private String userLaseLoginIp;
+
+    //用户简介
+    private String userDesc;
+
+    public String getUserDesc() {
+        return userDesc;
+    }
+
+    public void setUserDesc(String userDesc) {
+        this.userDesc = userDesc;
+    }
 
     public Integer getUserId() {
         return userId;

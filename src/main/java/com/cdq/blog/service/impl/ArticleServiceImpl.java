@@ -7,15 +7,18 @@ import com.cdq.blog.model.Article;
 import com.cdq.blog.model.ArticleType;
 import com.cdq.blog.service.ArticleService;
 import com.cdq.blog.state.BaseStateEnum;
+import com.cdq.blog.unit.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 文章管理service层
  * 组合查询文章记录前必须设置文章状态属性值（0或者-1）
+ *
  * @author cdq
  * created on 2019.08.29
  */
@@ -30,7 +33,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 组合查询文章列表
-     * 1
+     * 校验参数：
+     * 1.检擦文章类型id是否是二级文章类型id
+     * 2.文章状态属性值为0或者-1
+     * 3.页码以及数量必须大于等于0
+     * 4.sortColumn可选值：goog_num+look_num,article_create_time
+     * 5.ad可选值：desc，asc
+     * 页码转换为记录行数
+     *
      * @param article
      * @param pageIndex
      * @param pageSize
@@ -39,15 +49,49 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public ArticleExecution getArticleList(Article article, int pageIndex, int pageSize,String sortColumn,String ad) {
-
-        return null;
+    public ArticleExecution getArticleList(Article article, int pageIndex, int pageSize, String sortColumn, String ad) {
+        //校验参数
+        if (article.getArticleType().getArticleTypeId() != null && article.getArticleType().getArticleTypeId() != 0) {
+            ArticleType tempArticleType = null;
+            tempArticleType = articleTypeDao.queryArticleTypeById(article.getArticleType());
+            //判断是否是一级文章类型id
+            if (tempArticleType.getParentArticleType() == null) {
+                return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
+            }
+        }
+        if (article.getArticleStatus() == null) {
+            return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
+        }
+        //校验文章状态属性值
+        if (article.getArticleStatus() != -1 && article.getArticleStatus() != 0) {
+            return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
+        }
+        //校验页码以及每页记录数量
+        if (pageIndex <= 0 && pageSize <= 0) {
+            return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
+        }
+        if (!sortColumn.equals("good_num+look_num") && !sortColumn.equals("article_create_time")) {
+            return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
+        }
+        if (!ad.equals("desc") && !ad.equals("asc")) {
+            return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
+        }
+        //页码转换
+        int rowIndex = PageUtil.pageToRowIndex(pageIndex, pageSize);
+        //请求数据库查询数据
+        try {
+            List<Article> articles = articleDao.queryArticleList(article, rowIndex, pageSize, sortColumn, ad);
+            return new ArticleExecution(BaseStateEnum.SUCCESS, articles);
+        } catch (Exception e) {
+            return new ArticleExecution(BaseStateEnum.INNER_ERROR);
+        }
     }
 
     /**
      * 添加文章记录
      * 校验参数：userId,articleTypeId,articleTitle,articleDiscription,articleKeyWord,articleContent不能为空
      * 添加创建时间属性值
+     * user.userId不能为空
      *
      * @param article
      * @return
@@ -91,10 +135,37 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    /**
+     * 修改文章记录
+     * 校验参数：id,user.userId不能为空
+     *
+     * @param article
+     * @return
+     */
     @Override
     @Transactional
     public ArticleExecution changeArticle(Article article) {
-        return null;
+        //校验参数
+        if (article.getArticleId() == null || article.getArticleId() == 0) {
+            return new ArticleExecution(BaseStateEnum.EMPTY_ID);
+        }
+        if (article.getUser() == null ) {
+            return new ArticleExecution(BaseStateEnum.EMPTY_USER);
+        }
+        if ( article.getUser().getUserId() == null && article.getUser().getUserId()==0){
+            return new ArticleExecution(BaseStateEnum.EMPTY_USER);
+        }
+        //请求数据库，修改记录
+        try {
+            int result = articleDao.updateArticle(article);
+            if (result == 1) {
+                return new ArticleExecution(BaseStateEnum.SUCCESS);
+            } else {
+                return new ArticleExecution(BaseStateEnum.INNER_ERROR);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("修改文章记录时出错，错误信息：" + e.getMessage());
+        }
     }
 
     /**
@@ -129,6 +200,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 通过id获取文章记录
+     *
      * @param article
      * @return
      */
@@ -141,6 +213,9 @@ public class ArticleServiceImpl implements ArticleService {
         //请求数据库，获取数据
         try {
             Article article1 = articleDao.queryArticleById(article);
+            if (article1.getArticleId()==null){
+                return new ArticleExecution(BaseStateEnum.OBJECT_ISNULL);
+            }
             return new ArticleExecution(BaseStateEnum.SUCCESS, article1);
         } catch (Exception e) {
             return new ArticleExecution(BaseStateEnum.OBJECT_ISNULL);

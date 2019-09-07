@@ -165,13 +165,13 @@
     margin:0px 5px 0px 0px;
 }
 #toleft {
-    display:none;
+    /*display:none;*/
     width:30px;
     height:100px;
     font-size:40px;
     line-height:100px;
     text-align:center;
-    color:#f4f4f4;
+    color:black;
     /*background:#cccccc;
     */
     /*background:url("../images/toleft.jpg")no-repeat center;
@@ -183,14 +183,20 @@
     z-index:99;
     opacity:0.4;
 }
+#toleft:hover{
+    background-color: #f4f4f4;
+}
+#toright:hover{
+    background-color: #f4f4f4;
+}
 #toright {
-    display:none;
+    /*display:none;*/
     width:30px;
     height:100px;
     font-size:40px;
     line-height:100px;
     text-align:center;
-    color:#f4f4f4;
+    color:black;
     /*background:#cccccc;
     */
     position:absolute;
@@ -228,6 +234,8 @@
 .article p{
     font-size: 14px;
     color: #6f6f6f;
+    text-align: left;
+    padding-left: 10px;
 }
 .yuan{
     margin: 10px auto;

@@ -3,11 +3,6 @@
    .top类选择器
    #id  id选择器
  */
-/* 顶部导航栏 */
-.top-tool{
-    width: 100%;
-    height: 100px;
-}
 
 /*左侧导航栏(外层:content)*/
 .left-tools{
@@ -65,7 +60,7 @@
     flex-direction: column;
 }
 .content {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     flex: 1; // 关键
 }
 .footer{
@@ -237,31 +232,4 @@
     text-align: left;
     padding-left: 10px;
 }
-.yuan{
-    margin: 10px auto;
-}
-.yuan img{
-    float: left;
-    border-radius:50%;
-    width: 24px;
-    height: 24px;
-}
-.article-bottom{
-    width: 100%;
-    height: 24px;
-    background-color: white;
-}
 
-/*用户信息*/
-.user-info{
-    float: right;
-    margin-right: 30px;
-    margin-top: 25px;
-}
-.user-info a{
-    float: left;
-    color: #1d7db1;
-}
-.user-info a:hover{
-    color: red;
-}

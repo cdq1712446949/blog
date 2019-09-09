@@ -9,6 +9,17 @@ public class PersonInfo {
 
     private Byte sexStatus;
 
+    //身份证号码
+    private String idNumber;
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
     public User getUser() {
         return user;
     }

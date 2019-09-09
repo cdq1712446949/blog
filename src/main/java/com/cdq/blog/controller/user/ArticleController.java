@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class ArticleController {
      * @return
      */
     @RequestMapping(value = "/getarticlelist",method = RequestMethod.GET)
-    public Map<String,Object> getArticleList(){
+    public Map<String,Object> getArticleList(HttpServletRequest request){
         Map<String,Object> modelMap=new HashMap<>();
         //TODO 后期修改为前端获取参数
         Article article=new Article();
@@ -41,6 +42,7 @@ public class ArticleController {
         if (articleExecution.getState()==0){
             modelMap.put("success",true);
             modelMap.put("articleList",articleExecution.getArticleList());
+            modelMap.put("sessionId",request.getSession().getId());
         }else{
             modelMap.put("success",false);
             modelMap.put("errMsg",articleExecution.getStateInfo());

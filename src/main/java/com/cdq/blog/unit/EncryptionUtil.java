@@ -43,10 +43,11 @@ public class EncryptionUtil {
     }
 
     public static void main(String[] args){
-        System.out.println(getEncryptionStr("root"));
-        System.out.println(getEncryptionStr("980814"));
-        System.out.println(getDecryptStr("cm9vdA=="));
-        System.out.println(getDecryptStr("OTgwODE0"));
+        System.out.println(getEncryptionStr("admin"));
+        System.out.println(getEncryptionStr("liunian1314.."));
+        System.out.println(getEncryptionStr("test980814.."));
+//        System.out.println(getDecryptStr("cm9vdA=="));
+//        System.out.println(getDecryptStr("OTgwODE0"));
     }
 
 }

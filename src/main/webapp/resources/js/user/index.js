@@ -3,9 +3,36 @@ $(function () {
     var advertisementListUrl = '/cdqblog/advertismentlist';
     var noticeListUrl = '/cdqblog/noticelist';
     var articleListUrl = '/cdqblog/article/getarticlelist';
+    var userLevelUrl = '/cdqblog/getuserlevellist'
 
-    var size=0;
+    var size = 0;
     var images;
+
+    function getUserInfo() {
+        var user = sessionStorage.getItem('cdq_blog_info');
+        var tempHtml = '';
+        if (user != null) {
+            tempHtml = user.nickName;
+            $('.user-info').hide();
+        }
+    }
+
+    getUserInfo();
+
+    function getUserLevelList() {
+        $.getJSON(userLevelUrl, function (data) {
+            if (data.success) {
+                var list=JSON.stringify(data.userLevelList)
+                localStorage.setItem("user_level_list", list);
+            } else {
+                console.log("获取用户等级列表失败:" + data.errMsg)
+            }
+        });
+    }
+
+    if (localStorage.getItem('user_level_list') == null) {
+        getUserLevelList();
+    }
 
     function getAdvertisement() {
         $.getJSON(advertisementListUrl, function (data) {
@@ -26,7 +53,7 @@ $(function () {
                 });
                 $('.lunbo').html(tempHtml);
                 size = $('.lunbo a').length;
-                images=$('.lunbo a');
+                images = $('.lunbo a');
                 // $('#lunbo-ul').html(tempUlHtml);
             } else {
                 alert("获取广告列表失败," + data.errMsg);
@@ -82,20 +109,20 @@ $(function () {
 
                 $.each(articleList, function (index, item) {
                     tempHtml += '<div class="article"> <a href="/cdqblog/blogcontent?articleId='
-                        +item.articleId
-                        +'">'
-                        +item.articleTitle
-                        +'</a> </br>  <p style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">'
-                        +item.articleDiscription
-                        +'</p> <div class="article-bottom"><div class="yuan" style="background-color: white"><img src="'
-                        +'resources/img/weixin.png'
-                        +'"></div><a href="#" style="font-size: 14px">'
-                        +item.user.nickName
-                        +'</a><a href="#" style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">'
-                        +item.commentNum
-                        +'</a><a href="#" style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">'
-                        +item.goodNum
-                        +'&nbsp; &nbsp;</a></div></div>';
+                        + item.articleId
+                        + '">'
+                        + item.articleTitle
+                        + '</a> </br>  <p style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">'
+                        + item.articleDiscription
+                        + '</p> <div class="article-bottom"><div class="yuan" style="background-color: white"><img src="'
+                        + 'resources/img/weixin.png'
+                        + '"></div><a href="#" style="font-size: 14px">'
+                        + item.user.nickName
+                        + '</a><a href="#" style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">'
+                        + item.commentNum
+                        + '</a><a href="#" style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">'
+                        + item.goodNum
+                        + '&nbsp; &nbsp;</a></div></div>';
                 });
                 $('#article').html(tempHtml);
 
@@ -143,7 +170,7 @@ $(function () {
         if (lunbo_index > size) {
             lunbo_index = 0
         }
-        console.log('play:'+lunbo_index)
+        console.log('play:' + lunbo_index)
         $("#lunbobox ul li").eq(lunbo_index).css({
             "background": "#999",
             "border": "1px solid #ffffff"
@@ -155,25 +182,25 @@ $(function () {
         $(".lunbo a ").eq(lunbo_index).fadeIn(1000).siblings().fadeOut(1000);
     };
 
-    function toleft(){
+    function toleft() {
         lunbo_index--;
         if (lunbo_index <= 0) //判断index<0的情况为：开始点击#toright  index=0时  再点击 #toleft 为负数了 会出错
         {
             lunbo_index = size;
         }
-        console.log('left:'+lunbo_index);
-        var ss=$("#lunbo a").length;
+        console.log('left:' + lunbo_index);
+        var ss = $("#lunbo a").length;
         $(".lunbo a ").eq(lunbo_index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）必须要写
 
     }
 
-    function toright(){
+    function toright() {
         lunbo_index++;
         if (lunbo_index > size) //判断index<0的情况为：开始点击#toright  index=0时  再点击 #toleft 为负数了 会出错
         {
             lunbo_index = 0;
         }
-        console.log('left:'+lunbo_index);
+        console.log('left:' + lunbo_index);
         $(".lunbo a ").eq(lunbo_index).fadeIn(100).siblings().fadeOut(100); // siblings  找到 兄弟节点(不包括自己）必须要写
 
     }

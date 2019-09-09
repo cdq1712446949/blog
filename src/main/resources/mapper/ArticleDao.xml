@@ -23,6 +23,8 @@
             <result property="userBirthday" column="user_birthday"></result>
             <result property="userEmail" column="user_email"></result>
             <result property="userHeadPhoto" column="user_head_photo"></result>
+            <result property="userPhone" column="user_phone"></result>
+            <result property="userDesc" column="user_desc"></result>
         </association>
         <!--多对一关联-->
         <association property="articleType" column="article_type_id" javaType="com.cdq.blog.model.ArticleType">
@@ -48,12 +50,14 @@
         a.*,
         u.user_id,
         u.nick_name,
+        u.user_phone,
         u.user_sex,
         u.user_role,
         u.user_exprience,
         u.user_email,
         u.user_birthday,
         u.user_head_photo,
+        u.user_desc,
         art.article_type_id,
         art.parent_id,
         art.article_type_name,

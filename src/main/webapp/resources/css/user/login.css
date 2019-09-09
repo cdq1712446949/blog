@@ -1,0 +1,34 @@
+
+.content-login{
+    overflow: hidden;
+    width: 650px;
+    margin: 200px 0 0 400px;
+    border-width: 3px;
+    border-style: groove;
+    border-color: #00CCFF;
+    /*border-style: solid;*/
+}
+.left-img{
+    width: 400px;
+    height: 300px;
+    padding: 1px;
+    /*position: relative;*/
+    float: left;
+}
+.left-img img{
+    width: 400px;
+    height: 300px;
+}
+.right-form{
+    text-align: center;
+    padding: 1px;
+    float: left;
+}
+.tishi{
+    color: red;
+    font-size: 22px;
+    float: left;
+}
+
+
+

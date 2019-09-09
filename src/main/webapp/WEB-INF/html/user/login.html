@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <!-- Custom Theme files -->
+    <link href="resources/css/user/login-style.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--<link href='http://fonts.useso.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>-->
+
+    <link href="resources/css/user/login.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>
+
+<div class="login">
+    <div class="login-top">
+        <h2>欢迎</h2>
+        <h3>登录</h3>
+    </div>
+    <div class="login-bottom">
+        <!--<h3>第三方登录:</h3>-->
+        <!--<ul>-->
+        <!--<li><a class="tw" href="#"></a></li>-->
+        <!--<li><a class="fa" href="#">Login with Facebook</a></li>-->
+        <!--<div class="clear"> </div>-->
+        <!--</ul>-->
+
+        <h3>站内登录:</h3>
+            <span class="tishi" id="tishi-username">*</span>
+            <div class="user">
+                <input type="text" placeholder="用户名/手机号/邮箱">
+                <i></i>
+            </div>
+            <span class="tishi" id="tishi-password">*</span>
+            <div class="user-in">
+                <input type="password" placeholder="密码">
+                <i></i>
+            </div>
+        <div class="keepme">
+            <label class="checkbox"><input type="checkbox" name="checkbox"><i> </i> 保存登录</label>
+            <div class="keep-loginbutton">
+                    <button id="btn-login">登录</button>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="forgot">
+            <p><a href="#">忘记密码?</a></p>
+            <div class="forgot-register">
+                <p>还没有注册? <a href="/cdqblog/regist">点击注册</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script src=" resources/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src=" resources/js/user/login.js" type="text/javascript"></script>
+</html>

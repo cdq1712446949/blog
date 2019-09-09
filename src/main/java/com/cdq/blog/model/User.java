@@ -40,6 +40,16 @@ public class User {
 
     //用户简介
     private String userDesc;
+    //用户手机号
+    private String userPhone;
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
 
     public String getUserDesc() {
         return userDesc;

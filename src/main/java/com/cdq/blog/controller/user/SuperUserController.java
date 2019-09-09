@@ -18,4 +18,16 @@ public class SuperUserController {
         return "user/blog";
     }
 
+    //返回登录界面
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String login(){
+        return "user/login";
+    }
+
+    //返回注册界面
+    @RequestMapping(value = "/regist",method = RequestMethod.GET)
+    public String regist(){
+        return "user/regist";
+    }
+
 }

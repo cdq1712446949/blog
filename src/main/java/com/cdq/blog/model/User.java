@@ -42,6 +42,46 @@ public class User {
     private String userDesc;
     //用户手机号
     private String userPhone;
+    //用户博客数量
+    private int blogNum;
+    //用户粉丝数量
+    private int funsNum;
+    //用户被浏览数量
+    private int lookNum;
+    //用户文章评论数量
+    private int commentNum;
+
+    public int getBlogNum() {
+        return blogNum;
+    }
+
+    public void setBlogNum(int blogNum) {
+        this.blogNum = blogNum;
+    }
+
+    public int getFunsNum() {
+        return funsNum;
+    }
+
+    public void setFunsNum(int funsNum) {
+        this.funsNum = funsNum;
+    }
+
+    public int getLookNum() {
+        return lookNum;
+    }
+
+    public void setLookNum(int lookNum) {
+        this.lookNum = lookNum;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
+    }
 
     public String getUserPhone() {
         return userPhone;

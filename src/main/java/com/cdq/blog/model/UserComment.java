@@ -1,8 +1,13 @@
 package com.cdq.blog.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class UserComment {
+
+    public static final int  BAN_STATUS=-1;
+    public static final int NORMAL_STATUS=0;
+
     private Integer userCommentId;
     //评论所属文章
     private Article article;
@@ -12,12 +17,22 @@ public class UserComment {
     private User fromUser;
     //被回复用户
     private User toUser;
+    //该评论下的回复评论
+    private List<UserComment> userCommentList;
 
     private Byte userCommentStatus;
 
     private Date userCommentCreateTime;
 
     private String userCommentContent;
+
+    public List<UserComment> getUserCommentList() {
+        return userCommentList;
+    }
+
+    public void setUserCommentList(List<UserComment> userCommentList) {
+        this.userCommentList = userCommentList;
+    }
 
     public Integer getUserCommentId() {
         return userCommentId;

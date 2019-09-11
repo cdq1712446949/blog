@@ -72,4 +72,16 @@ public class ArticleDaoTest extends BaseTest {
         System.out.println(article1.toString());
     }
 
+    @Test
+    public void testQueryNewArticleList(){
+        Article article=new Article();
+        User user=new User();
+        user.setUserId(3);
+        article.setUser(user);
+        List<Article> list=articleDao.queryNewArticleByUserId(article);
+        for (Article article1:list){
+            System.out.println(article1.getArticleTitle());
+        }
+    }
+
 }

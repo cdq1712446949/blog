@@ -46,7 +46,7 @@ nav.navbar.bootsnav {
 nav.navbar.bootsnav ul.nav > li > a {
     color: #474747;
     /*text-transform: uppercase;*/
-    padding: 20px;
+    padding: 10px;
 }
 
 nav.navbar.bootsnav ul.nav > li:hover {
@@ -89,6 +89,10 @@ nav.navbar.bootsnav ul.nav > li.dropdown.on > a.dropdown-toggle:after {
     left: -100% !important;
 }
 
+.dropdown-menu li:hover{
+    background-color: whitesmoke;
+}
+
 nav.navbar.bootsnav li.dropdown ul.dropdown-menu {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border: none;
@@ -120,19 +124,31 @@ nav.navbar.bootsnav li.dropdown ul.dropdown-menu {
 }
 
 /*用户信息*/
-.user-info{
+.user-info, .login-regist{
     float: right;
     margin-right: 30px;
-    margin-top: 20px;
+
 }
-.user-info a{
+.login-regist a{
     float: left;
     color: #1d7db1;
 }
-.user-info a:hover{
+.login-regist a:hover{
     color: red;
 }
-
+.user-info img{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+/*#user-info-menu{*/
+    /*z-index: auto;*/
+    /*float: right;*/
+    /*margin:0px 30px 0 0 ;*/
+    /*background-color: white;*/
+    /*list-style: none;*/
+    /*padding: 10px 15px;*/
+/*}*/
 /*logo*/
 #logo{
     height: 55px;

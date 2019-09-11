@@ -9,8 +9,6 @@ import com.cdq.blog.service.ArticleService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.stream.StreamSupport;
-
 public class ArticleServiceTest extends BaseTest {
 
     @Autowired
@@ -71,6 +69,16 @@ public class ArticleServiceTest extends BaseTest {
         Article article=new Article();
         article.setArticleId(3);
         ArticleExecution articleExecution=articleService.getArticleById(article);
+        System.out.println(articleExecution.getStateInfo());
+    }
+
+    @Test
+    public void testQueryNewArticleList(){
+        Article article=new Article();
+        User user=new User();
+        user.setUserId(3);
+        article.setUser(user);
+        ArticleExecution articleExecution=articleService.getNewArticleByUserId(article);
         System.out.println(articleExecution.getStateInfo());
     }
 

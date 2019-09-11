@@ -22,6 +22,7 @@ public interface ArticleDao {
      * @param ad 确定是升序（asc）还是降序（desc）
      * @return
      */
+    //TODO 修改查询条件（articleDao.xml）
     List<Article> queryArticleList(@Param("article") Article article,  @Param("rowIndex") @Min(0) int rowIndex,
                                    @Param("pageSize") int pageSize,@Param("sortColumn") String sortColumn,
                                    @Param("ad") String ad);
@@ -57,5 +58,13 @@ public interface ArticleDao {
      * @return
      */
     Article queryArticleById(Article article);
+
+    /**
+     * 根据userId获取最新发布的五篇文章
+     * 文章状态必须为0才可以获取
+     * @param article
+     * @return
+     */
+    List<Article> queryNewArticleByUserId(Article article);
 
 }

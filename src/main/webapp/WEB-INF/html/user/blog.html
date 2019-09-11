@@ -31,24 +31,10 @@
                             <!--网站logo-->
                             <button id="logo"></button>
                             <!--导航栏菜单-->
-                            <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                            <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp"
+                                style="margin-top: 10px;">
                                 <li><a href="#">Home</a></li>
                                 <li><a href="#">Home</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shortcodes</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Custom Menu</a></li>
-                                        <li><a href="#">Custom Menu</a></li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
                                     <ul class="dropdown-menu">
@@ -75,9 +61,31 @@
                                 <button class="btn"></button>
                             </div>
                             <!--用户登录注册以及用户信息展示-->
-                            <div class="user-info">
-                                <a href="#">登录 &nbsp;&nbsp;</a>
-                                <a href="#">注册</a>
+                            <div class="user-info" style="display: none;">
+                                <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <img src="http://localhost/cdqblog/\user_image\system_default\images\user\default_head_image.jpg">
+                                            <span>超级管理员</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li><a href="#">Custom Menu</a></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sub Menu</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Custom Menu</a></li>
+                                                    <li><a href="#">Custom Menu</a></li>
+                                                    <li><a href="#">Custom Menu</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="login-regist">
+                                <a href="/cdqblog/login">登录 &nbsp;&nbsp;</a>
+                                <a href="/cdqblog/regist">注册</a>
                             </div>
                         </div>
                     </nav>
@@ -85,6 +93,7 @@
             </div>
         </div>
     </div>
+
 
 </div>
 
@@ -299,24 +308,22 @@
                 </h3>
             </div>
             <div class="line-1" style="background-color: #9f9f9f "></div>
-            <div class="comment-signarea" >
+            <div class="comment-signarea">
                 <h3 class="text-muted">评论前必须登录！</h3>
-                <p><a href="#" class="btn-blue btn-primary login" rel="nofollow">立即登录</a> &nbsp; <a
-                        href="#" class="btn-blue btn-default register" rel="nofollow">注册</a></p>
+                <p><a href="/cdqblog/login" class="btn-blue btn-primary login" rel="nofollow">立即登录</a> &nbsp; <a
+                        href="/cdqblog/regist" class="btn-blue btn-default register" rel="nofollow">注册</a></p>
             </div>
-            <form action="#" method="post" id="comment-form" style="display: none;">
-                <div class="comment">
-                    <div class="comment-title"><img class="avatar" src="resources/img/icon.jpg"/></div>
-                    <div class="comment-box">
+            <div class="comment">
+                <div class="comment-title" style="display: none;"></div>
+                <div class="comment-box">
                             <textarea placeholder="您的评论可以一针见血" name="content" id="comment-textarea" cols="90%" rows="3"
                                       tabindex="1"></textarea>
-                        <div class="comment-ctrl">
-                            <button class="btn-blue btn-primary" id="comment-submit">评论</button>
-                            </input>
-                        </div>
+                    <div class="comment-ctrl">
+                        <button class="btn-blue btn-primary" id="comment-submit">评论</button>
+                        </input>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="line-1"></div>
         <!--相关文章-->
@@ -331,6 +338,8 @@
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src=" resources/js/bootsnav.js"></script>
 <script type="text/javascript" src=" resources/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src=" resources/js/user/blog.js"></script>
+<script type="text/javascript" src=" resources/js/common/common.js"></script>
 <!--代码高亮-->
 <script type="text/javascript">
     var allpre = document.getElementsByTagName("pre");
@@ -340,7 +349,7 @@
         onepre.innerHTML = '<code id="mycode">' + mycode + '</code>';
     }
 
-    document.body.onselectstart = function(){
+    document.body.onselectstart = function () {
         return true;
     }
 

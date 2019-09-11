@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.UserCommentDao">
+    <resultMap id="fromUserCommentMap" type="com.cdq.blog.model.UserComment">
+        <id column="ucc_user_comment_id" property="userCommentId"></id>
+        <result column="ucc_user_comment_create_time" property="userCommentCreateTime"></result>
+        <result column="ucc_user_comment_content" property="userCommentContent"></result>
+        <association property="fromUser" column="from_user_id" javaType="com.cdq.blog.model.User">
+            <result property="nickName" column="fuu_nick_name"></result>
+            <result property="userHeadPhoto" column="fuu_user_head_photo"></result>
+        </association>
+        <collection property="userCommentList" column="ucc_user_comment_id" ofType="com.cdq.blog.model.UserComment"
+                    select="com.cdq.blog.dao.UserCommentDao.selectUserCommentById"></collection>
+    </resultMap>
+    <resultMap id="toUserCommentMap" type="com.cdq.blog.model.UserComment">
+        <id column="uc_user_comment_id" property="userCommentId"></id>
+        <result column="uc_user_comment_create_time" property="userCommentCreateTime"></result>
+        <result column="uc_user_comment_content" property="userCommentContent"></result>
+        <association property="fromUser" javaType="com.cdq.blog.model.User">
+            <result property="nickName" column="fu_nick_name"></result>
+            <result property="userHeadPhoto" column="fu_user_head_photo"></result>
+        </association>
+        <association property="toUser" column="to_user_id" javaType="com.cdq.blog.model.User">
+            <result property="nickName" column="tu_nick_name"></result>
+            <result property="userHeadPhoto" column="tu_user_head_photo"></result>
+        </association>
+    </resultMap>
+    <select id="selectUserCommentById" resultMap="toUserCommentMap">
+        select
+        uc.user_comment_id as uc_user_comment_id,
+        uc.user_comment_create_time as uc_user_comment_create_time,
+        uc.user_comment_content as uc_user_comment_content,
+        fu.nick_name as fu_nick_name,
+        fu.user_head_photo as fu_user_head_photo,
+        tu.nick_name as tu_nick_name,
+        tu.user_head_photo as tu_user_head_photo
+        from user_comment as uc
+        left join user as fu on uc.from_user_id=fu.user_id
+        left join user as tu on uc.to_user_id=tu.user_id
+        where uc.comment_id=#{id} and uc.user_comment_status=0
+    </select>
+    <select id="queryUserCommentList" resultMap="fromUserCommentMap">
+        select
+        ucc.user_comment_id as ucc_user_comment_id,
+        ucc.user_comment_create_time as ucc_user_comment_create_time,
+        ucc.user_comment_content as ucc_user_comment_content,
+        fuu.nick_name as fuu_nick_name,
+        fuu.user_head_photo as fuu_user_head_photo
+        from user_comment as ucc
+        left join user as fuu on ucc.from_user_id=fuu.user_id
+        where ucc.user_comment_status=0
+        and ucc.article_id=#{article.articleId}
+        <if test="fromUser!=null and fromUser.userId!=null">and ucc.user_id=#{fromUser.userId}</if>
+        and ucc.comment_id is null
+        order by ucc.user_comment_create_time desc
+        limit #{rowIndex},#{pageSize};
+    </select>
+</mapper>

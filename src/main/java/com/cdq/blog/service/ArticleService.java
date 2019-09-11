@@ -41,4 +41,12 @@ public interface ArticleService {
      * @return
      */
     ArticleExecution getArticleById(Article article);
+
+    /**
+     * 通过userId获取最新发布的文章记录
+     * @param article
+     * @return
+     */
+    ArticleExecution getNewArticleByUserId(Article article);
+
 }

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * created on 2019.08.19
  */
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 public class MVCConfiguration implements WebMvcConfigurer, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -72,7 +72,8 @@ public class MVCConfiguration implements WebMvcConfigurer, ApplicationContextAwa
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/user_image/**")
+                .addResourceLocations("file:D:/blogimage/user_image/");
     }
 
 

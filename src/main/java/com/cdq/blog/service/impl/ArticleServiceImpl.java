@@ -26,6 +26,11 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
+    public static final String HOT_SORT="good_num+look_num";//根据热度排序
+    public static final String DATE_SORT="article_create_time";//根据创建时间排序
+    public static final String DESC="desc";//降序
+    public static final String ASC="asc";//升序
+
     @Autowired
     private ArticleDao articleDao;
     @Autowired
@@ -70,10 +75,10 @@ public class ArticleServiceImpl implements ArticleService {
         if (pageIndex <= 0 && pageSize <= 0) {
             return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
         }
-        if (!sortColumn.equals("good_num+look_num") && !sortColumn.equals("article_create_time")) {
+        if (!sortColumn.equals(HOT_SORT) && !sortColumn.equals(DATE_SORT)) {
             return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
         }
-        if (!ad.equals("desc") && !ad.equals("asc")) {
+        if (!ad.equals(DESC) && !ad.equals(ASC)) {
             return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
         }
         //页码转换
@@ -219,6 +224,30 @@ public class ArticleServiceImpl implements ArticleService {
             return new ArticleExecution(BaseStateEnum.SUCCESS, article1);
         } catch (Exception e) {
             return new ArticleExecution(BaseStateEnum.OBJECT_ISNULL);
+        }
+    }
+
+    /**
+     * 校验参数
+     * 1.user.userId
+     * @param article
+     * @return
+     */
+    @Override
+    public ArticleExecution getNewArticleByUserId(Article article) {
+        //校验参数
+        if (article.getUser()==null){
+            return new ArticleExecution(BaseStateEnum.EMPTY_USER);
+        }
+        if (article.getUser().getUserId()==null||article.getUser().getUserId()==0){
+            return new ArticleExecution(BaseStateEnum.EMPTY_USER);
+        }
+        //调用dao层获取数据
+        try {
+            List<Article> list = articleDao.queryNewArticleByUserId(article);
+            return new ArticleExecution(BaseStateEnum.SUCCESS,list);
+        }catch (Exception e){
+            return new ArticleExecution(BaseStateEnum.INNER_ERROR);
         }
     }
 }

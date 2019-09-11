@@ -45,17 +45,14 @@
             <result column="article_lable_create_time" property="articleLableCreateTime"></result>
         </collection>
     </resultMap>
+    <!--根据文章id获取文章记录-->
     <select id="queryArticleById" resultMap="articleMap">
         SELECT
         a.*,
         u.user_id,
         u.nick_name,
-        u.user_phone,
         u.user_sex,
-        u.user_role,
         u.user_exprience,
-        u.user_email,
-        u.user_birthday,
         u.user_head_photo,
         u.user_desc,
         art.article_type_id,
@@ -73,6 +70,7 @@
         article_lable as al
         where a.article_id=#{articleId}
     </select>
+    <!--查询文章列表-->
     <select id="queryArticleList" resultMap="articleMap">
         SELECT
         a.*,
@@ -117,6 +115,15 @@
         </where>
         ORDER BY #{sortColumn} #{ad}
         <if test="rowIndex!=0 or pageSize!=0">limit #{rowIndex},#{pageSize}</if>
+    </select>
+    <!--根据用户id获取最新的五条文章记录-->
+    <select id="queryNewArticleByUserId" resultType="com.cdq.blog.model.Article">
+        SELECT
+        article_title,
+        article_create_time,
+        FROM ARTICLE
+        WHERE user_id=#{user.userId} and article_status=0
+        order by article_create_time desc limit 0,5;
     </select>
     <!--添加文章记录-->
     <insert id="insertArticle" parameterType="com.cdq.blog.model.Article">

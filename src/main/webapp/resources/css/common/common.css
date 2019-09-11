@@ -88,3 +88,9 @@
     border: 1px solid transparent;
     border-radius: 4px;
 }
+
+.img-left-16{
+    width: 16px;
+    height: 16px;
+    float: left;
+}

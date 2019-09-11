@@ -9,20 +9,44 @@ $(function () {
     var images;
 
     function getUserInfo() {
-        var user = sessionStorage.getItem('cdq_blog_info');
+        var u = JSON.parse(sessionStorage.getItem('cdq_blog_info'));
         var tempHtml = '';
-        if (user != null) {
-            tempHtml = user.nickName;
-            $('.user-info').hide();
+        // var p=u.userId;
+        if (u != null) {
+            tempHtml += '<ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">\n'
+                + '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">'
+                + '<img src="'
+                + '/cdqblog'
+                + u.userHeadPhoto
+                + '"><span>'
+                + u.nickName
+                + '</span></a>\n'
+                + '<ul class="dropdown-menu">'
+                +'<li><a href="#">我的关注</a></li>'
+                +'<li><a href="#">我的收藏</a></li>'
+                +'<li><a href="#">个人中心</a></li>'
+                +'<li><a href="#">账号设置</a></li>'
+                +'<li><a href="#">退出登录</a></li>'
+                + '</ul></li></ul>';
+            $('.user-info').html(tempHtml);
+            $('.user-info').show();
+            $('.login-regist').hide();
         }
     }
 
     getUserInfo();
 
+    $('.user-info').hover(function () {
+        $('#user-info-menu').show();
+    });
+    $('#user-info-menu').mouseleave(function () {
+        $('#user-info-menu').hide();
+    });
+
     function getUserLevelList() {
         $.getJSON(userLevelUrl, function (data) {
             if (data.success) {
-                var list=JSON.stringify(data.userLevelList)
+                var list = JSON.stringify(data.userLevelList)
                 localStorage.setItem("user_level_list", list);
             } else {
                 console.log("获取用户等级列表失败:" + data.errMsg)
@@ -106,7 +130,6 @@ $(function () {
             if (data.success) {
                 var articleList = data.articleList;
                 var tempHtml = '';
-
                 $.each(articleList, function (index, item) {
                     tempHtml += '<div class="article"> <a href="/cdqblog/blogcontent?articleId='
                         + item.articleId
@@ -118,9 +141,9 @@ $(function () {
                         + 'resources/img/weixin.png'
                         + '"></div><a href="#" style="font-size: 14px">'
                         + item.user.nickName
-                        + '</a><a href="#" style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">'
+                        + '</a><a style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">'
                         + item.commentNum
-                        + '</a><a href="#" style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">'
+                        + '</a><a style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">'
                         + item.goodNum
                         + '&nbsp; &nbsp;</a></div></div>';
                 });
@@ -170,7 +193,7 @@ $(function () {
         if (lunbo_index > size) {
             lunbo_index = 0
         }
-        console.log('play:' + lunbo_index)
+        // console.log('play:' + lunbo_index)
         $("#lunbobox ul li").eq(lunbo_index).css({
             "background": "#999",
             "border": "1px solid #ffffff"
@@ -188,7 +211,7 @@ $(function () {
         {
             lunbo_index = size;
         }
-        console.log('left:' + lunbo_index);
+        // console.log('left:' + lunbo_index);
         var ss = $("#lunbo a").length;
         $(".lunbo a ").eq(lunbo_index).fadeIn(1000).siblings().fadeOut(1000); // siblings  找到 兄弟节点(不包括自己）必须要写
 
@@ -200,7 +223,7 @@ $(function () {
         {
             lunbo_index = 0;
         }
-        console.log('left:' + lunbo_index);
+        // console.log('left:' + lunbo_index);
         $(".lunbo a ").eq(lunbo_index).fadeIn(100).siblings().fadeOut(100); // siblings  找到 兄弟节点(不包括自己）必须要写
 
     }

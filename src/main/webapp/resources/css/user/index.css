@@ -4,6 +4,10 @@
    #id  id选择器
  */
 
+body{
+    background-color: whitesmoke;
+}
+
 /*左侧导航栏(外层:content)*/
 .left-tools{
     background-color: white;

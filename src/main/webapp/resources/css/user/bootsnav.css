@@ -1023,7 +1023,7 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
         float: none !important;
         padding-left: 30px;
         padding-right: 30px;
-        margin: 0px -15px;
+        margin: 10px -15px;
     }
     
     nav.navbar.bootsnav .navbar-nav > li {

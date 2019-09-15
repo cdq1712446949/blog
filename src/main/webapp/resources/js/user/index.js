@@ -43,6 +43,7 @@ $(function () {
         $('#user-info-menu').hide();
     });
 
+    //添加清除用户等级列表方法（记录修改后）
     function getUserLevelList() {
         $.getJSON(userLevelUrl, function (data) {
             if (data.success) {

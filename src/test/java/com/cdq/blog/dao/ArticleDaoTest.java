@@ -67,8 +67,9 @@ public class ArticleDaoTest extends BaseTest {
     @Test
     public void testQueryArticleById(){
         Article article=new Article();
-        article.setArticleId(3);
+        article.setArticleId(2);
         Article article1=articleDao.queryArticleById(article);
+        Date createTime=article1.getArticleCreateTime();
         System.out.println(article1.toString());
     }
 

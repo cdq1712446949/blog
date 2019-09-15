@@ -8,8 +8,16 @@ public class UserCollection {
     private User user;
     //用户所关注的文章
     private Article article;
-
+    private Byte collectionStatus;
     private Date collectionCreateTime;
+
+    public Byte getCollectionStatus() {
+        return collectionStatus;
+    }
+
+    public void setCollectionStatus(Byte collectionStatus) {
+        this.collectionStatus = collectionStatus;
+    }
 
     public Integer getCollectionId() {
         return collectionId;

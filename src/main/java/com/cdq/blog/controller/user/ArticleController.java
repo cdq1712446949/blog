@@ -57,7 +57,7 @@ public class ArticleController {
      * 添加文章记录
      * 校验参数：
      * 2.用户id:session中获取userId
-     * 3.
+     * 3.至少有一个文章标签
      * @return
      */
     @RequestMapping(value = "/addarticle" , method = RequestMethod.GET)

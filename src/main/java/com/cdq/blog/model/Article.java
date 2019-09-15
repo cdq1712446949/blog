@@ -1,5 +1,6 @@
 package com.cdq.blog.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -131,12 +132,13 @@ public class Article {
         this.articleStatus = articleStatus;
     }
 
+    //格式化后返回数据
     public Date getArticleCreateTime() {
-        return articleCreateTime;
+        return this.articleCreateTime;
     }
 
     public void setArticleCreateTime(Date articleCreateTime) {
-        this.articleCreateTime = articleCreateTime;
+        this.articleCreateTime=articleCreateTime;
     }
 
     public Date getArticleLastEditTime() {

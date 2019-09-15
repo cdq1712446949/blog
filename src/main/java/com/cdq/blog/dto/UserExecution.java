@@ -1,6 +1,8 @@
 package com.cdq.blog.dto;
 
+import com.cdq.blog.model.ThumbsCollection;
 import com.cdq.blog.model.User;
+import com.cdq.blog.model.UserInfo;
 import com.cdq.blog.state.UserStateEnum;
 
 import java.util.List;
@@ -12,6 +14,22 @@ public class UserExecution {
     private User user;
     private List<User> userList;
     private int count;
+    private UserInfo userInfo;
+    private ThumbsCollection thumbsCollection;
+
+
+
+    public UserExecution(UserStateEnum userStateEnum,UserInfo userInfo){
+        this.state=userStateEnum.getState();
+        this.stateInfo=userStateEnum.getStateInfo();
+        this.userInfo=userInfo;
+    }
+
+    public UserExecution(UserStateEnum userStateEnum,ThumbsCollection thumbsCollection){
+        this.state=userStateEnum.getState();
+        this.stateInfo=userStateEnum.getStateInfo();
+        this.thumbsCollection=thumbsCollection;
+    }
 
     public UserExecution(UserStateEnum userStateEnum){
         this.state=userStateEnum.getState();
@@ -28,6 +46,14 @@ public class UserExecution {
         this.state=userStateEnum.getState();
         this.stateInfo=userStateEnum.getStateInfo();
         this.userList=userList;
+    }
+
+    public ThumbsCollection getThumbsCollection() {
+        return thumbsCollection;
+    }
+
+    public void setThumbsCollection(ThumbsCollection thumbsCollection) {
+        this.thumbsCollection = thumbsCollection;
     }
 
     public String getStateInfo() {
@@ -68,5 +94,13 @@ public class UserExecution {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }

@@ -2,7 +2,9 @@ package com.cdq.blog.service.impl;
 
 import com.cdq.blog.dao.UserDao;
 import com.cdq.blog.dto.UserExecution;
+import com.cdq.blog.model.ThumbsCollection;
 import com.cdq.blog.model.User;
+import com.cdq.blog.model.UserInfo;
 import com.cdq.blog.service.UserService;
 import com.cdq.blog.state.UserStateEnum;
 import com.cdq.blog.unit.EncryptionUtil;
@@ -48,5 +50,48 @@ public class UserServiceImpl implements UserService {
                 return new UserExecution(UserStateEnum.ACCOUNT_BAN);
             }
         }
+    }
+
+    /**
+     * 获取用户信息
+     * 1.博客数量
+     * 2.粉丝数量
+     * 3.访问数量
+     * 4.评论数量
+     * @param user
+     * @return
+     */
+    @Override
+    public UserExecution getUerInfo(User user) {
+        //校验参数
+        if (user.getUserId()==null){
+            return new UserExecution(UserStateEnum.EMPTY_USER);
+        }
+        if (user.getUserId()==0){
+            return new UserExecution(UserStateEnum.EMPTY_USER);
+        }
+        //请求数据库获取数据
+        UserInfo userInfo=userDao.queryUserInfo(user);
+        return new UserExecution(UserStateEnum.SUCCESS,userInfo);
+    }
+
+    /**
+     * 获取登录用户对当前文章的点赞和收藏状态
+     * @param thumbsCollection
+     * @return
+     */
+    @Override
+    public UserExecution getThumbsCollection(ThumbsCollection thumbsCollection) {
+        //校验参数
+        //userId不能是0
+        if (thumbsCollection.getUserId()==0){
+            return new UserExecution(UserStateEnum.EMPTY_USER);
+        }
+        //articleId不能是0
+        if (thumbsCollection.getArticleId()==0){
+            return new UserExecution(UserStateEnum.EMPTY_ARTICLE);
+        }
+        ThumbsCollection thumbsCollection1=userDao.queryThumbsCollection(thumbsCollection);
+        return new UserExecution(UserStateEnum.SUCCESS,thumbsCollection1);
     }
 }

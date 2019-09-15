@@ -14,7 +14,6 @@
     <!-- 引入下面三条 -->
     <link rel="stylesheet" type="text/css" href="resources/css/common/tomorrow-night-eighties.css">
     <script type="text/javascript" src="resources/js/common/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 
 </head>
 
@@ -101,11 +100,11 @@
     <div class="left">
         <div class="auther-info">
             <div class="auther-one">
-                <div class="yuan" style="float: left;">
-                    <img src="resources/img/weixin.png" style="height: 50px;width: 50px;margin: 0 0 0 10px;">
+                <div class="yuan" style="float: left;" id="author-head">
+
                 </div>
                 <div class="nick-name">
-                    <a href="#">十一点的夜晚</a> <br>
+                    <a href="#" id="nick-name"></a> <br>
                 </div>
                 <div class="action">
                     <button id="attention">关注</button>
@@ -113,27 +112,12 @@
                 </div>
             </div>
             <div class="auther-two">
-                <div id="blog-num" class="ffff">
-                    <a href="#">博客</a> <br>
-                    <span>10</span>
-                </div>
-                <div id="fans-num" class="ffff">
-                    <a href="#">粉丝</a> <br>
-                    <span>10</span>
-                </div>
-                <div id="look-num" class="ffff">
-                    <a href="#">浏览</a> <br>
-                    <span>10</span>
-                </div>
-                <div id="comment-num" class="ffff">
-                    <a href="#">评论</a> <br>
-                    <span>10</span>
-                </div>
+               <!--js添加-->
             </div>
             <div class="auther-three">
                 <div class="level">
                     <div id="level" class="tttt">
-                        等级：19
+
                     </div>
                     <div id="look" class="tttt">
                         访问：19
@@ -152,12 +136,8 @@
                 <a href="#">最新文章</a>
             </div>
             <div class="line-2"></div>
-            <ul>
-                <li><a href="#">第一篇,长度不够，啦啦啦啦啦啦，还是不够</a></li>
-                <li><a href="#">第一篇</a></li>
-                <li><a href="#">第一篇</a></li>
-                <li><a href="#">第一篇</a></li>
-                <li><a href="#">第一篇</a></li>
+            <ul id="new-article-ul">
+
             </ul>
         </div>
         <div class="web-info">
@@ -198,13 +178,12 @@
         <div class="article-all">
             <div class="article-title">
                 <span><img src="resources/img/title.png">
-                <h3>这是标题</h3></span>
+                <h3 id="article-title"></h3></span>
             </div>
             <div class="article-type">
-                <span>2019-06-26 15:52:30 &nbsp;&nbsp;阅读数:2339</span>
+                <span id="article-info"></span>
                 <div class="article-tags">
-                    <span>文章标签：</span>
-                    <a href="#" class="a-blue">ssm</a>
+
                 </div>
             </div>
         </div>
@@ -215,88 +194,7 @@
         <div class="line-1"></div>
         <div class="article-content">
             <article id="article">
-                <p>
-                    举例用的表
-                </p>
-                <p>
-                    a_table：
-                </p>
-                <pre class="brush:sql;toolbar:false">CREATE TABLE `a_table` (
-  `a_id` int(11) DEFAULT NULL,
-  `a_name` varchar(10) DEFAULT NULL,
-  `a_part` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8</pre>
-                <p>
-                    b_table：
-                </p>
-                <pre class="brush:sql;toolbar:false">CREATE TABLE `b_table` (
-  `b_id` int(11) DEFAULT NULL,
-  `b_name` varchar(10) DEFAULT NULL,
-  `b_part` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8</pre>
-                <p>
-                    测试数据：
-                </p>
-                <p>
-                    <img src="https://img-blog.csdn.net/20171209135012639?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcGxnMTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"/>
-                </p>
-                <h1 style="font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: left; margin: 0px 0px 10px;">
-                    一&nbsp; 内连接<br/>
-                </h1>
-                <p>
-                    语法：a_table inner join b_table<br/>
-                </p>
-                <p>
-                    语句：
-                </p>
-                <pre class="brush:sql;toolbar:false">select * from a_table a inner join b_table b on a.a_id=b.b_id</pre>
-                <p>
-                    过程：内连接会根据on的条件生成临时表，符合条件的记录才会被添加到临时表
-                </p>
-                <p>
-                    临时表：mysql内外连接时会生成一个临时表，临时表有两个表的所有字段
-                </p>
-                <p>
-                    执行结果
-                </p>
-                <p>
-                    <img src="https://img-blog.csdn.net/20171209133941291?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcGxnMTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"/>
-                </p>
-                <h1 style="font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: left; margin: 0px 0px 10px;">
-                    二&nbsp; 左连接（左外连接）<br/>
-                </h1>
-                <p>
-                    语法：a_table left outer join b_table&nbsp; &nbsp;(outer可以省略)<br/>
-                </p>
-                <p>
-                    语句：
-                </p>
-                <pre class="brush:sql;toolbar:false">select * from a_table a right join b_table b on a.a_id=b.b_id</pre>
-                <p>
-                    过程：左连接会把左表（a_table）记录全部添加到临时表，右表根据on的条件添加，不符合条件的记录都为null
-                </p>
-                <p>
-                    执行结果：
-                </p>
-                <p>
-                    <img src="https://img-blog.csdn.net/20171209141445680?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcGxnMTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"/>
-                </p>
-                <h1 style="font-size: 32px; font-weight: bold; border-bottom: 2px solid rgb(204, 204, 204); padding: 0px 4px 0px 0px; text-align: left; margin: 0px 0px 10px;">
-                    三 右连接（右外连接）
-                </h1>
-                <p>
-                    和左连接相反
-                </p>
-                <p>
-                    语句：
-                </p>
-                <pre class="brush:sql;toolbar:false">select * from a_table a left join b_table b on a.a_id=b.b_id</pre>
-                <p>
-                    执行结果：<br/>
-                </p>
-                <p>
-                    <img src="https://img-blog.csdn.net/20171209143426953?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcGxnMTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"/>
-                </p>
+                <!--文章内容-->
             </article>
         </div>
         <div class="line-2"></div>
@@ -340,18 +238,5 @@
 <script type="text/javascript" src=" resources/js/jquery-3.3.1.js"></script>
 <script type="text/javascript" src=" resources/js/user/blog.js"></script>
 <script type="text/javascript" src=" resources/js/common/common.js"></script>
-<!--代码高亮-->
-<script type="text/javascript">
-    var allpre = document.getElementsByTagName("pre");
-    for (i = 0; i < allpre.length; i++) {
-        var onepre = document.getElementsByTagName("pre")[i];
-        var mycode = document.getElementsByTagName("pre")[i].innerHTML;
-        onepre.innerHTML = '<code id="mycode">' + mycode + '</code>';
-    }
 
-    document.body.onselectstart = function () {
-        return true;
-    }
-
-</script>
 </html>

@@ -35,8 +35,7 @@ public class MVCConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/", "/static", "/static/img");
+                .addPathPatterns("/iszanorcollection");
 
     }
 

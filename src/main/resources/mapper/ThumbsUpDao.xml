@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.ThumbsUpDao">
+    <resultMap id="upMap" type="com.cdq.blog.model.ThumbsUp">
+        <id property="thumbsUpId" column="thumbs_up_id"></id>
+        <association property="user" column="up_user_id" javaType="com.cdq.blog.model.User"></association>
+        <association property="article" column="up_article_id" javaType="com.cdq.blog.model.Article"></association>
+    </resultMap>
+    <!--查重使用-->
+    <select id="selectThumbsUp" resultType="com.cdq.blog.model.ThumbsUp">
+        select thumbs_up_id from thumbs_up where up_user_id=#{user.userId} and up_article_id=#{article.articleId}
+    </select>
+    <insert id="insertThumbsUp" parameterType="com.cdq.blog.model.ThumbsUp">
+        insert into thumbs_up(
+        up_user_id,up_article_id,up_create_time
+        ) values (
+        #{user.userId},#{article.articleId},#{upCreateTime}
+        )
+    </insert>
+    <update id="updateThumbsUp" parameterType="com.cdq.blog.model.ThumbsUp">
+        UPDATE  thumbs_up set up_status=#{upStatus} where thumbs_up_id=#{thumbsUpId};
+    </update>
+</mapper>

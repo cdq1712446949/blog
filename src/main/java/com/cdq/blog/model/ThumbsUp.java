@@ -10,6 +10,15 @@ public class ThumbsUp {
     //被点赞的文章
     private Article article;
     private Date upCreateTime;
+    private Byte upStatus;
+
+    public Byte getUpStatus() {
+        return upStatus;
+    }
+
+    public void setUpStatus(Byte upStatus) {
+        this.upStatus = upStatus;
+    }
 
     public int getThumbsUpId() {
         return thumbsUpId;

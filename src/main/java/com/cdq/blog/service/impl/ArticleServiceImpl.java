@@ -7,6 +7,7 @@ import com.cdq.blog.model.Article;
 import com.cdq.blog.model.ArticleType;
 import com.cdq.blog.service.ArticleService;
 import com.cdq.blog.state.BaseStateEnum;
+import com.cdq.blog.unit.DateUtil;
 import com.cdq.blog.unit.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,6 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
             List<Article> articles = articleDao.queryArticleList(article, rowIndex, pageSize, sortColumn, ad);
             return new ArticleExecution(BaseStateEnum.SUCCESS, articles);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ArticleExecution(BaseStateEnum.INNER_ERROR);
         }
     }
@@ -218,6 +220,7 @@ public class ArticleServiceImpl implements ArticleService {
         //请求数据库，获取数据
         try {
             Article article1 = articleDao.queryArticleById(article);
+            article1.setArticleCreateTime(DateUtil.dateFormt(article1.getArticleCreateTime()));
             if (article1.getArticleId()==null){
                 return new ArticleExecution(BaseStateEnum.OBJECT_ISNULL);
             }
@@ -247,6 +250,7 @@ public class ArticleServiceImpl implements ArticleService {
             List<Article> list = articleDao.queryNewArticleByUserId(article);
             return new ArticleExecution(BaseStateEnum.SUCCESS,list);
         }catch (Exception e){
+            e.printStackTrace();
             return new ArticleExecution(BaseStateEnum.INNER_ERROR);
         }
     }

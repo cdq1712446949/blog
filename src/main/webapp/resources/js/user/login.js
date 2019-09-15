@@ -18,7 +18,6 @@ $(function () {
     });
 
     if (sessionStorage.getItem('cdq_blog_info')!=null){
-        confirm("加载中。。。。")
         window.location.href='/cdqblog/index';
     }
 

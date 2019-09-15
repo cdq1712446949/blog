@@ -66,8 +66,8 @@
         FROM
         article as a
         LEFT JOIN user as u on a.user_id=u.user_id
-        LEFT JOIN article_type art on a.article_type_id= art.article_type_id,
-        article_lable as al
+        LEFT JOIN article_type art on a.article_type_id= art.article_type_id
+        LEFT JOIN article_lable as al on a.article_id=al.article_id
         where a.article_id=#{articleId}
     </select>
     <!--查询文章列表-->
@@ -119,8 +119,9 @@
     <!--根据用户id获取最新的五条文章记录-->
     <select id="queryNewArticleByUserId" resultType="com.cdq.blog.model.Article">
         SELECT
+        article_id,
         article_title,
-        article_create_time,
+        article_create_time
         FROM ARTICLE
         WHERE user_id=#{user.userId} and article_status=0
         order by article_create_time desc limit 0,5;

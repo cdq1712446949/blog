@@ -11,7 +11,7 @@ public interface ThumbsUpDao {
      * @param thumbsUp
      * @return
      */
-    int insertThumbsUp(ThumbsUp thumbsUp);
+    int insertThumbsUp(ThumbsUp thumbsUp) throws Exception;
 
     /**
      * 修改点赞记录

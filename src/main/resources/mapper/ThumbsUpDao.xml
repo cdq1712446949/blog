@@ -18,6 +18,6 @@
         )
     </insert>
     <update id="updateThumbsUp" parameterType="com.cdq.blog.model.ThumbsUp">
-        UPDATE  thumbs_up set up_status=#{upStatus} where thumbs_up_id=#{thumbsUpId};
+        UPDATE  thumbs_up set up_status=#{upStatus} where up_user_id=#{user.userId} and up_article_id=#{article.articleId};
     </update>
 </mapper>

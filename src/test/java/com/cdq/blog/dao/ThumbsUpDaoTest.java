@@ -25,7 +25,11 @@ public class ThumbsUpDaoTest extends BaseTest {
         thumbsUp.setUpCreateTime(new Date());
         thumbsUp.setUser(user);
 //        thumbsUp.set
-        int result=thumbsUpDao.insertThumbsUp(thumbsUp);
+        try {
+            int result=thumbsUpDao.insertThumbsUp(thumbsUp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

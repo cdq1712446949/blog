@@ -19,4 +19,11 @@ public interface ThumbsUpService {
      */
     ThumbsUpExecution changeThumbsUp(ThumbsUp thumbsUp);
 
+    /**
+     * 点赞记录管理
+     * @param thumbsUp
+     * @return
+     */
+    ThumbsUpExecution thumbsManage(ThumbsUp thumbsUp);
+
 }

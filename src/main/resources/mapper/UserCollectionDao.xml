@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.UserCollectionDao">
+    <select id="duplicateCheck" resultType="com.cdq.blog.model.UserCollection">
+        select
+        collection_id
+        from user_collection
+        where user_id=#{user.userId} and article_id=#{article.articleId}
+    </select>
+    <insert id="insertUserCollection" parameterType="com.cdq.blog.model.UserCollection">
+        insert into user_collection(
+        user_id,article_id,collection_create_time
+        ) values (
+        #{user.userId},#{article.articleId},#{collectionCreateTime}
+        )
+    </insert>
+    <update id="updateUserCollection" parameterType="com.cdq.blog.model.UserCollection">
+        update user_collection
+        set collection_status=#{collectionStatus}
+        where user_id=#{user.userId} and article_id=#{article.articleId}
+    </update>
+</mapper>

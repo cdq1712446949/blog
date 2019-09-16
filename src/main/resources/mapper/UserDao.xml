@@ -40,8 +40,10 @@
         select
         u.user_id,
         uc.article_id,
-        count(uc.collection_id) as is_collection,
-        count(tu.thumbs_up_id) as is_thumbs_up
+        uc.collection_id,
+        tu.thumbs_up_id,
+        uc.collection_status as is_collection,
+        tu.up_status as is_thumbs_up
         from
         user as u
         left join user_collection as uc on u.user_id=uc.user_id and uc.article_id=#{articleId}

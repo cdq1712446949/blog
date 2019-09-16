@@ -31,13 +31,7 @@ public class UserController {
         Map<String, Object> modelMap = new HashMap<>();
         int articleId = HttpServletRequestUtil.getInt(request, "articleId");
         int userId = HttpServletRequestUtil.getInt(request, "userId");
-        User user = (User) request.getSession().getAttribute("cdq_blog_user_info");
         //处理前端参数
-        if (userId != user.getUserId()) {
-            modelMap.put("success", false);
-            modelMap.put("errMsg", "请求的用户和当前登陆用户不同,请重试!");
-            return modelMap;
-        }
         ThumbsCollection thumbsCollection=new ThumbsCollection();
         thumbsCollection.setArticleId(articleId);
         thumbsCollection.setUserId(userId);

@@ -3,6 +3,7 @@ package com.cdq.blog.interceptor;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPObject;
 import com.cdq.blog.model.User;
+import com.cdq.blog.unit.InterceptorUtil;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,29 +39,13 @@ public class LoginInterceptor implements HandlerInterceptor {
             modelMap.put("errMsg","请先登录");
             String jsonStr=JSONObject.toJSONString(modelMap);
             try {
-                returnJson(response,jsonStr);
+                InterceptorUtil.returnJson(response,jsonStr);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            request.setAttribute("errMsg","请先登录");
             return false;
         }else {
             return true;
-        }
-    }
-
-    private void returnJson(HttpServletResponse response, String json) throws Exception{
-        PrintWriter writer = null;
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
-        try {
-            writer = response.getWriter();
-            writer.print(json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (writer != null)
-                writer.close();
         }
     }
 

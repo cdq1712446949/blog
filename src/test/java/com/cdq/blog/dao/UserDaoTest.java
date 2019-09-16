@@ -32,8 +32,8 @@ public class UserDaoTest extends BaseTest {
     @Test
     public void testqueryThumbsCollection(){
         ThumbsCollection thumbsCollection=new ThumbsCollection();
-        thumbsCollection.setUserId(1);
-        thumbsCollection.setArticleId(2);
+        thumbsCollection.setUserId(2);
+        thumbsCollection.setArticleId(3);
         ThumbsCollection thumbsCollection1=userDao.queryThumbsCollection(thumbsCollection);
         System.out.println(thumbsCollection.getIsThumbsUp());
     }

@@ -11,7 +11,14 @@ public class HttpServletRequestUtil {
 			return -1;
 		}
 	}
+	public static Byte getByte(HttpServletRequest request, String name) {
 
+		try {
+			return Byte.valueOf(request.getParameter(name));
+		} catch (Exception e) {
+			return -1;
+		}
+	}
 	public static long getLong(HttpServletRequest request, String name) {
 
 		try {

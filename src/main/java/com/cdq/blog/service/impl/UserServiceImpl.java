@@ -92,6 +92,14 @@ public class UserServiceImpl implements UserService {
             return new UserExecution(UserStateEnum.EMPTY_ARTICLE);
         }
         ThumbsCollection thumbsCollection1=userDao.queryThumbsCollection(thumbsCollection);
+        if (thumbsCollection1!=null){
+            if (thumbsCollection1.getCollectionId()==0){
+                thumbsCollection1.setIsCollection(-1);
+            }
+            if (thumbsCollection1.getThumbsUpId()==0){
+                thumbsCollection1.setIsThumbsUp(-1);
+            }
+        }
         return new UserExecution(UserStateEnum.SUCCESS,thumbsCollection1);
     }
 }

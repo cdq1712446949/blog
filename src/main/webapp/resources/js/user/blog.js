@@ -5,11 +5,18 @@ $(function () {
     var articleUrl = '/cdqblog/article/getarticlebyid';
     var thumbsUrl = '/cdqblog/iszanorcollection';
     var authorInfoUrl = '/cdqblog/getuserinfobyid';
-    var newArticleUrl = '/cdqblog/article/getnewarticlebyuserid'
+    var newArticleUrl = '/cdqblog/article/getnewarticlebyuserid';
+    var collectionUrl='/cdqblog/usercollectionmanage/';
+    var thumbsUpUrl='/cdqblog/thumbsupmanage';
 
     var authorId = '';
     var userId = '';
     var articleId = '';
+
+    var isCollection = false; //是否收藏了该文章
+    var isThumbsUp = false; //是否点赞了该文章
+    var colStatus=0;
+    var thumbsStatus=0;
 
     function getUserInfo() {
         var u = JSON.parse(sessionStorage.getItem('cdq_blog_info'));
@@ -106,6 +113,7 @@ $(function () {
                     $('#article-info').html(article.articleCreateTime + ' &nbsp;&nbsp;' + '阅读数:' + article.lookNum);
                     $('.article-tags').html(lableHtml);
                     $('#article').html(article.articleContent);
+                    codeHight();
                     getAuthorInfo();
                 } else {
                     alert("获取文章失败：" + data.errMsg);
@@ -186,25 +194,31 @@ $(function () {
             success: function (data) {
                 if (data.success) {
                     var thumbsCollection = data.thumbsCollection;
-                    var isCollection = false;
-                    var isThumbsUp = false;
-                    if (thumbsCollection.isCollection == 1) {
+                    if (thumbsCollection.isCollection == 0) {
                         isCollection = true;
+                        colStatus=-1;
                     }
-                    if (thumbsCollection.isThumbsUp == 1) {
+                    if (thumbsCollection.isCollection == -1) {
+                        isCollection=false;
+                        colStatus=0;
+                    }
+                    if (thumbsCollection.isThumbsUp == 0) {
                         isThumbsUp = true;
+                        thumbsStatus=-1;
+                    }
+                    if (thumbsCollection.isThumbsUp == -1) {
+                        isThumbsUp=false;
+                        thumbsStatus=0
                     }
                     if (isCollection){
                         $('#shoucang').css({'background':'url(resources/img/re-shoucang.png) no-repeat','background-size':'30px'});
-                        $('#shoucang').click(cancleCollection());
                     }else{
-                        $('#shoucang').click(collection());
+                        $('#shoucang').css({'background':'url(resources/img/shoucang.png) no-repeat','background-size':'30px'});
                     }
                     if (isThumbsUp){
                         $('#dianzan').css({'background':'url(resources/img/re-zan.png) no-repeat','background-size':'30px'});
-                        $('#dianzan').click(cancleThumbs());
                     }else {
-                        $('#dianzan').click(thumbsUp());
+                        $('#dianzan').css({'background':'url(resources/img/zan.png) no-repeat','background-size':'30px'});
                     }
                 } else {
                     alert('获取失败：' + data.errMsg);
@@ -213,32 +227,54 @@ $(function () {
         });
     }
 
-    //取消收藏
-    function cancleCollection() {
+    //点赞以及收藏管理
+    function tcManage(url,status) {
+        // alert("sssss");
+        $.ajax({
+            url:url,
+            type:"GET",
+            data:{
+                articleId:articleId,
+                userId:userId,
+                status:status
+            },
+            dataType:"JSON",
+            success:function (data) {
+                if (data.success){
+                    getThumbsStatus();
+                } else {
+                    alert('操作失败'+data.errMsg);
+                }
+            }
+        })
+    }
+    //
+    $('#dianzan').click(function () {
+        tcManage(thumbsUpUrl,thumbsStatus)
+    });
+    $('#shoucang').click(function () {
+        tcManage(collectionUrl,colStatus)
+    });
 
-    }
-    //收藏文章
-    function collection() {
-        
-    }
-    //取消点赞
-    function cancleThumbs() {
-        
-    }
-    //点赞文章
-    function thumbsUp() {
-        
-    }
-    
     <!--代码高亮-->
+    //初始化方法
+    //highlightBlock(block)
+    // 应用高亮到一个包含代码的DOM节点上
+    //
+    // initHighlighting()
+    // 在页面的<pre><code>..</code></pre>区域上应用高亮
+    //
+    // initHighlightingOnLoad()
+    // 绑定高亮到页面加载事件上
     function codeHight() {
-        hljs.initHighlightingOnLoad();
+        // hljs.initHighlightingOnLoad();
         var allpre = document.getElementsByTagName("pre");
         for (i = 0; i < allpre.length; i++) {
             var onepre = document.getElementsByTagName("pre")[i];
             var mycode = document.getElementsByTagName("pre")[i].innerHTML;
             onepre.innerHTML = '<code id="mycode">' + mycode + '</code>';
         }
+        hljs.initHighlighting();
     }
 
     function calLevel(exprience) {
@@ -255,4 +291,12 @@ $(function () {
         }
     }
 
+    $('#attention').click(function () {
+        alert("不想做了");
+    });
+
+    // codeHight();
+
 });
+
+

@@ -24,4 +24,8 @@ $(function () {
         }
     }
 
+    $('#logo').click(function () {
+        window.location.href='/cdqblog/index';
+    });
+
 });

@@ -1,5 +1,6 @@
 package com.cdq.blog.config;
 
+import com.cdq.blog.interceptor.CheckLoginUserInterceptor;
 import com.cdq.blog.interceptor.LoginInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -35,8 +36,9 @@ public class MVCConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/iszanorcollection");
-
+                .addPathPatterns("/iszanorcollection","/thumbsUpManage","/usercollectionmanage");
+        registry.addInterceptor(new CheckLoginUserInterceptor())
+                .addPathPatterns("/iszanorcollection","/thumbsUpManage","/usercollectionmanage");
     }
 
     /**

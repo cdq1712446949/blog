@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +34,8 @@ public class ThumbsUpController {
      * @param status
      * @return
      */
-    @RequestMapping(value = "/thumbsUpManage", method = RequestMethod.GET)
-    public Map<String, Object> thumbsUpManage(int userId, int articleId, Byte status) {
+    @RequestMapping(value = "/thumbsupmanage", method = RequestMethod.GET)
+    public Map<String, Object> thumbsUpManage(HttpServletRequest request, int userId, int articleId, Byte status) {
         Map<String, Object> modelMap = new HashMap<>();
         //前端参数处理
         ThumbsUp thumbsUp = new ThumbsUp();
@@ -46,7 +47,7 @@ public class ThumbsUpController {
         thumbsUp.setArticle(article);
         thumbsUp.setUpStatus(status);
         //service层调用
-        try{
+        try {
             ThumbsUpExecution thumbsUpExecution = thumbsUpService.thumbsManage(thumbsUp);
             if (thumbsUpExecution.getState() == 0) {
                 modelMap.put("success", true);
@@ -54,9 +55,9 @@ public class ThumbsUpController {
                 modelMap.put("success", false);
                 modelMap.put("errMsg", thumbsUpExecution.getStateInfo());
             }
-        }catch (Exception e){
-            modelMap.put("success",false);
-            modelMap.put("errMsg","请确认操作是否合理");
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "请确认操作是否合理");
         }
         return modelMap;
     }

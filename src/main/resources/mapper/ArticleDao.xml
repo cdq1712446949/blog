@@ -70,7 +70,7 @@
         LEFT JOIN article_lable as al on a.article_id=al.article_id
         where a.article_id=#{articleId}
     </select>
-    <!--查询文章列表-->
+    <!--查询文章列表，一级文章类型，二级文章类型，创建时间，内容-->
     <select id="queryArticleList" resultMap="articleMap">
         SELECT
         a.*,
@@ -94,24 +94,37 @@
         FROM
         article as a
         LEFT JOIN user as u on a.user_id=u.user_id
-        LEFT JOIN article_type art on a.article_type_id= art.article_type_id
-        LEFT JOIN (select distinct(article_id),count(article_id) as comment_num from user_comment
-        group by article_id) as c on a.article_id=c.article_id,
-        article_lable as al
+        LEFT JOIN (select * from article_type
         <where>
-            <if test="article.articleType.articleTypeId != null">
-                a.article_type_id = #{article.articleType.articleTypeId}
+            <if test="article.articleType != null">
+                <if test="article.articleType.parentArticleType!=null">
+                    <if test="article.articleType.parentArticleType.articleTypeId != null">
+                    parent_id=#{article.articleType.parentArticleType.articleTypeId}
+                    </if>
+                </if>
+            </if>
+        </where>
+        ) as art on a.article_type_id= art.article_type_id
+        LEFT JOIN (select distinct(article_id),count(article_id) as comment_num from user_comment
+        group by article_id) as c on a.article_id=c.article_id
+        LEFT JOIN article_lable as al on a.article_id=al.article_id
+        <where>
+            <if test="article.articleType!= null ">
+                <if test="article.articleType.articleTypeId != null">
+                    a.article_type_id = #{article.articleType.articleTypeId}
+                </if>
             </if>
             <if test="article.articleCreateTime != null">
                 and year(article_create_time)=year(#{article.articleCreateTime})
                 and month(rticle_create_time)= month(#{article.articleCreateTime})
             </if>
-            <if test="article.articleKeyWord != null ">
-                and article_title like'%${article.articleKeyWord}%'
-                and article_discription like'%${article.articleKeyWord}%'
-                and article_key_word like '%${article.articleKeyWord}%'
+            <if test="article.articleKeyWord != null ">and (
+                article_title like'%${article.articleKeyWord}%'
+                or article_discription like'%${article.articleKeyWord}%'
+                or article_key_word like '%${article.articleKeyWord}%')
             </if>
             <if test="article.articleStatus != null">and article_status=#{article.articleStatus}</if>
+            and art.article_type_id is not null
         </where>
         ORDER BY #{sortColumn} #{ad}
         <if test="rowIndex!=0 or pageSize!=0">limit #{rowIndex},#{pageSize}</if>

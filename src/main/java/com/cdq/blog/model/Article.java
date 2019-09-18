@@ -34,6 +34,7 @@ public class Article {
     //评论数量
     private int commentNum;
     //评论列表
+
     private List<UserComment> userCommentList;
 
     public List<UserComment> getUserCommentList() {

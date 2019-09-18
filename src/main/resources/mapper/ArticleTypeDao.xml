@@ -39,7 +39,9 @@
             <if test="articleType.articleTypeName !=null">and a.article_type_name like
                 '%${articleType.articleTypeName}%'
             </if>
-            <if test="articleType.parentArticleType!=null and articleType.parentArticleType.articleTypeId ==null">and a.parent_id is null</if>
+            <if test="articleType.parentArticleType!=null and articleType.parentArticleType.articleTypeId ==null">and
+                a.parent_id is null
+            </if>
             <if test="articleType.parentArticleType!=null and articleType.parentArticleType.articleTypeId !=null">and
                 a.parent_id=#{articleType.parentArticleType.articleTypeId}
             </if>

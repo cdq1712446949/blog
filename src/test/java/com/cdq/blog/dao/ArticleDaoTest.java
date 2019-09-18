@@ -19,10 +19,15 @@ public class ArticleDaoTest extends BaseTest {
     public void testQueryArticleList(){
         Article article=new Article();
         article.setArticleKeyWord("MySQL");
+//        ArticleType articleType=new ArticleType();
+//        articleType.setArticleTypeId((short) 12);
+//        article.setArticleType(articleType);
+//        article.setArticleStatus((byte) 0);
         ArticleType articleType=new ArticleType();
-        articleType.setArticleTypeId((short) 12);
-        article.setArticleType(articleType);
-        article.setArticleStatus((byte) 0);
+//        ArticleType parentArticleType=new ArticleType();
+//        parentArticleType.setArticleTypeId((short) 7);
+//        articleType.setParentArticleType(parentArticleType);
+//        article.setArticleType(articleType);
         List<Article> articles=articleDao.queryArticleList(article,
                 0,0,"good_num+look_num","desc");
         System.out.println(String.valueOf(articles.size()));

@@ -237,3 +237,32 @@ body{
     padding-left: 10px;
 }
 
+/*查询条件*/
+.condition{
+    width: 670px;
+    overflow: hidden;
+    background-color: white;
+    margin-left: 35px;
+    border-radius: 20px;
+}
+.condition-first-type{
+    overflow: hidden;
+}
+.condition-first-type p{
+    float: left;
+}
+.condition-first-type ul{
+    float: left;
+    padding: 0 20px;
+}
+.condition-first-type ul li{
+    display: inline-block;
+}
+.condition-first-type ul li a{
+    color: black;
+    margin: 0 5px;
+}
+.condition-first-type ul li a:hover{
+    color: #34c9dd;
+    margin: 0 5px;
+}

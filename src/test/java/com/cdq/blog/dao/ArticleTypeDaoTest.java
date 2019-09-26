@@ -22,9 +22,9 @@ public class ArticleTypeDaoTest {
         ArticleType articleType=new ArticleType();
 //        articleType.setArticleTypeName("J");
         ArticleType parentArticleType=new ArticleType();
-//        parentArticleType.setArticleTypeId((short) 7);
-//        articleType.setParentArticleType(parentArticleType);
-        List<ArticleType> list=articleTypeDao.queryArticleTypeList(articleType,0,5);
+        parentArticleType.setArticleTypeId((short) 3);
+        articleType.setParentArticleType(parentArticleType);
+        List<ArticleType> list=articleTypeDao.queryArticleTypeList(articleType,0,10);
         for (ArticleType a:list){
             System.out.println(a.getArticleTypeName());
         }

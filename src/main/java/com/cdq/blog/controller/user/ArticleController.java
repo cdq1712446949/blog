@@ -5,7 +5,7 @@ import com.cdq.blog.model.Article;
 import com.cdq.blog.model.ArticleType;
 import com.cdq.blog.model.User;
 import com.cdq.blog.service.ArticleService;
-import com.cdq.blog.service.impl.ArticleServiceImpl;
+import com.cdq.blog.unit.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Min;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,19 +36,48 @@ public class ArticleController {
      */
     @RequestMapping(value = "/getarticlelist", method = RequestMethod.GET)
     public Map<String, Object> getArticleList(HttpServletRequest request) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, Object> modelMap = new HashMap<>();
-        //TODO 后期修改为前端获取参数
+        //前端获取参数
         Article article = new Article();
         ArticleType articleType = new ArticleType();
-//        articleType.setArticleTypeId((short) 11);
+        ArticleType parentArticleType = new ArticleType();
+        articleType.setParentArticleType(parentArticleType);
         article.setArticleType(articleType);
+        //可以有
+        int articleTypeId = HttpServletRequestUtil.getInt(request, "articleTypeId");
+        article.getArticleType().setArticleTypeId((short) articleTypeId);
+        int parentArticleTypeId = HttpServletRequestUtil.getInt(request, "parentArticleTypeId");
+        article.getArticleType().getParentArticleType().setArticleTypeId((short) parentArticleTypeId);
+        String keyWord = HttpServletRequestUtil.getString(request, "keyWord");
+        article.setArticleKeyWord(keyWord);
+        String createTime = HttpServletRequestUtil.getString(request, "createTime");
+        try {
+            if (createTime != null) {
+                article.setArticleCreateTime(simpleDateFormat.parse(createTime));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "时间转换失败");
+            return modelMap;
+        }
+        //必须有
+        int pageIndex = HttpServletRequestUtil.getInt(request, "pageIndex");
+        int pageSize = HttpServletRequestUtil.getInt(request, "pageSize");
+        String sortColumn = HttpServletRequestUtil.getString(request, "sortColumn");
+        String ad = HttpServletRequestUtil.getString(request, "ad");
+        if (pageIndex == -1 || pageSize == -1 || sortColumn == null || ad == null) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "缺少必要的参数");
+            return modelMap;
+        }
         article.setArticleStatus((byte) 0);
-        ArticleExecution articleExecution = articleService.getArticleList(article, 0, 5,
-                ArticleServiceImpl.HOT_SORT, ArticleServiceImpl.DESC);
+        ArticleExecution articleExecution = articleService.getArticleList(article, pageIndex, pageSize,
+                sortColumn, ad);
         if (articleExecution.getState() == 0) {
             modelMap.put("success", true);
             modelMap.put("articleList", articleExecution.getArticleList());
-            modelMap.put("sessionId", request.getSession().getId());
         } else {
             modelMap.put("success", false);
             modelMap.put("errMsg", articleExecution.getStateInfo());

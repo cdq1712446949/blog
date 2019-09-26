@@ -97,8 +97,8 @@
         LEFT JOIN (select * from article_type
         <where>
             <if test="article.articleType != null">
-                <if test="article.articleType.parentArticleType!=null">
-                    <if test="article.articleType.parentArticleType.articleTypeId != null">
+                <if test="article.articleType.parentArticleType!= null">
+                    <if test="article.articleType.parentArticleType.articleTypeId != -1">
                     parent_id=#{article.articleType.parentArticleType.articleTypeId}
                     </if>
                 </if>
@@ -110,13 +110,13 @@
         LEFT JOIN article_lable as al on a.article_id=al.article_id
         <where>
             <if test="article.articleType!= null ">
-                <if test="article.articleType.articleTypeId != null">
+                <if test="article.articleType.articleTypeId != -1">
                     a.article_type_id = #{article.articleType.articleTypeId}
                 </if>
             </if>
             <if test="article.articleCreateTime != null">
                 and year(article_create_time)=year(#{article.articleCreateTime})
-                and month(rticle_create_time)= month(#{article.articleCreateTime})
+                and month(article_create_time)= month(#{article.articleCreateTime})
             </if>
             <if test="article.articleKeyWord != null ">and (
                 article_title like'%${article.articleKeyWord}%'

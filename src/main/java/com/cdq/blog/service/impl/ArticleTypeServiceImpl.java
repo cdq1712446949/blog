@@ -36,16 +36,7 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
         }
         List<ArticleType> list = articleTypeDao.queryArticleTypeList(
                 articleType, PageUtil.pageToRowIndex(page, pageSize), pageSize);
-        if (list.size() == 0) {
-            return new ArticleTypeExecution(ArticleTypeStateEnum.EMPTY_RESULT);
-        }
-        if (list.size() == 1) {
-            return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS, list.get(0));
-        }
-        if (list.size() > 1) {
-            return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS, list);
-        }
-        return null;
+        return new ArticleTypeExecution(ArticleTypeStateEnum.SUCCESS, list);
     }
 
     /**

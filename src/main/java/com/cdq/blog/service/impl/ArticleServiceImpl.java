@@ -27,10 +27,10 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-    public static final String HOT_SORT="good_num+look_num";//根据热度排序
-    public static final String DATE_SORT="article_create_time";//根据创建时间排序
-    public static final String DESC="desc";//降序
-    public static final String ASC="asc";//升序
+    public static final String HOT_SORT = "good_num+look_num";//根据热度排序
+    public static final String DATE_SORT = "article_create_time";//根据创建时间排序
+    public static final String DESC = "desc";//降序
+    public static final String ASC = "asc";//升序
 
     @Autowired
     private ArticleDao articleDao;
@@ -57,14 +57,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleExecution getArticleList(Article article, int pageIndex, int pageSize, String sortColumn, String ad) {
         //校验参数
-        if (article.getArticleType().getArticleTypeId() != null && article.getArticleType().getArticleTypeId() != 0) {
-            ArticleType tempArticleType = null;
-            tempArticleType = articleTypeDao.queryArticleTypeById(article.getArticleType());
-            //判断是否是一级文章类型id
-            if (tempArticleType.getParentArticleType() == null) {
-                return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
-            }
-        }
         if (article.getArticleStatus() == null) {
             return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
         }
@@ -76,7 +68,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (pageIndex <= 0 && pageSize <= 0) {
             return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
         }
-        if (!sortColumn.equals(HOT_SORT) && !sortColumn.equals(DATE_SORT)) {
+        if (!sortColumn.equals("1") && !sortColumn.equals("2")) {
             return new ArticleExecution(BaseStateEnum.ILLEGAL_PARAMETER);
         }
         if (!ad.equals(DESC) && !ad.equals(ASC)) {
@@ -84,6 +76,12 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //页码转换
         int rowIndex = PageUtil.pageToRowIndex(pageIndex, pageSize);
+        if (sortColumn.equals(1)){
+            sortColumn=HOT_SORT;
+        }
+        if (sortColumn.equals(2)){
+            sortColumn=DATE_SORT;
+        }
         //请求数据库查询数据
         try {
             List<Article> articles = articleDao.queryArticleList(article, rowIndex, pageSize, sortColumn, ad);
@@ -156,10 +154,10 @@ public class ArticleServiceImpl implements ArticleService {
         if (article.getArticleId() == null || article.getArticleId() == 0) {
             return new ArticleExecution(BaseStateEnum.EMPTY_ID);
         }
-        if (article.getUser() == null ) {
+        if (article.getUser() == null) {
             return new ArticleExecution(BaseStateEnum.EMPTY_USER);
         }
-        if ( article.getUser().getUserId() == null && article.getUser().getUserId()==0){
+        if (article.getUser().getUserId() == null && article.getUser().getUserId() == 0) {
             return new ArticleExecution(BaseStateEnum.EMPTY_USER);
         }
         //请求数据库，修改记录
@@ -221,7 +219,7 @@ public class ArticleServiceImpl implements ArticleService {
         try {
             Article article1 = articleDao.queryArticleById(article);
             article1.setArticleCreateTime(DateUtil.dateFormt(article1.getArticleCreateTime()));
-            if (article1.getArticleId()==null){
+            if (article1.getArticleId() == null) {
                 return new ArticleExecution(BaseStateEnum.OBJECT_ISNULL);
             }
             return new ArticleExecution(BaseStateEnum.SUCCESS, article1);
@@ -233,23 +231,24 @@ public class ArticleServiceImpl implements ArticleService {
     /**
      * 校验参数
      * 1.user.userId
+     *
      * @param article
      * @return
      */
     @Override
     public ArticleExecution getNewArticleByUserId(Article article) {
         //校验参数
-        if (article.getUser()==null){
+        if (article.getUser() == null) {
             return new ArticleExecution(BaseStateEnum.EMPTY_USER);
         }
-        if (article.getUser().getUserId()==null||article.getUser().getUserId()==0){
+        if (article.getUser().getUserId() == null || article.getUser().getUserId() == 0) {
             return new ArticleExecution(BaseStateEnum.EMPTY_USER);
         }
         //调用dao层获取数据
         try {
             List<Article> list = articleDao.queryNewArticleByUserId(article);
-            return new ArticleExecution(BaseStateEnum.SUCCESS,list);
-        }catch (Exception e){
+            return new ArticleExecution(BaseStateEnum.SUCCESS, list);
+        } catch (Exception e) {
             e.printStackTrace();
             return new ArticleExecution(BaseStateEnum.INNER_ERROR);
         }

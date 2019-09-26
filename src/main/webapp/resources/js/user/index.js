@@ -3,10 +3,22 @@ $(function () {
     var advertisementListUrl = '/cdqblog/advertismentlist';
     var noticeListUrl = '/cdqblog/noticelist';
     var articleListUrl = '/cdqblog/article/getarticlelist';
-    var userLevelUrl = '/cdqblog/getuserlevellist'
+    var userLevelUrl = '/cdqblog/getuserlevellist';
+    var articleTypeUrl = '/cdqblog/getarticletypelist'
 
     var size = 0;
     var images;
+
+    var pageSize = 6;
+    var pageIndex = 1;
+    var sortColumn = 1;
+    var ad = 'desc';
+    var articleTypeId = '-1';
+    var parentArticleTypeId = '-1';
+    var createTime = '';
+    var keyWord = '';
+
+    var isSearch = false;
 
     function getUserInfo() {
         var u = JSON.parse(sessionStorage.getItem('cdq_blog_info'));
@@ -22,11 +34,11 @@ $(function () {
                 + u.nickName
                 + '</span></a>\n'
                 + '<ul class="dropdown-menu">'
-                +'<li><a href="#">我的关注</a></li>'
-                +'<li><a href="#">我的收藏</a></li>'
-                +'<li><a href="#">个人中心</a></li>'
-                +'<li><a href="#">账号设置</a></li>'
-                +'<li><a href="#">退出登录</a></li>'
+                + '<li><a href="#">我的关注</a></li>'
+                + '<li><a href="#">我的收藏</a></li>'
+                + '<li><a href="#">个人中心</a></li>'
+                + '<li><a href="#">账号设置</a></li>'
+                + '<li><a href="#">退出登录</a></li>'
                 + '</ul></li></ul>';
             $('.user-info').html(tempHtml);
             $('.user-info').show();
@@ -92,15 +104,19 @@ $(function () {
         $.getJSON(firstArticleTypeListUrl, function (data) {
             if (data.success) {
                 var firstArticleTypeList = data.firstArticleTypeList;
+                sessionStorage.setItem('firstArticleType', JSON.stringify(firstArticleTypeList));
                 var tempHtml = '';
                 $.each(firstArticleTypeList, function (index, item) {
-                    tempHtml += '<li><a href=" '
-                        + '#'
+                    tempHtml += '<li><a class="first-type" typeId="'
+                        + item.articleTypeId
                         + '">'
                         + item.articleTypeName
                         + '</a></li>';
                 });
                 $('.left-tools-ul').html(tempHtml);
+                $('.first-type').click(function () {
+                    hs(this);
+                });
             } else {
                 alert("获取一级文章类别失败，" + data.errMsg);
             }
@@ -109,6 +125,134 @@ $(function () {
 
     getFirstArticleTypeList();
 
+    //隐藏轮播图以及公告，展示组合查询条件
+    function hs(dom) {
+        if (!isSearch) {
+            $('.banner').hide();
+            $('.gonggao').hide();
+            $('.condition').show();
+            isSearch = true;
+            var tempList = JSON.parse(sessionStorage.getItem("firstArticleType"));
+            var tempHtml = '';
+            for (var i = 0; i < tempList.length; i++) {
+                var temp = tempList[i];
+                tempHtml += ' <li><a typeId="'
+                    + temp.articleTypeId
+                    + '" status="-1" class="typeId">'
+                    + temp.articleTypeName
+                    + '</a></li>';
+            }
+            $('#fir-type-ul').html(tempHtml);
+            $('.typeId').click(function () {
+                var status = this.getAttribute('status');
+                if (status == '0') {
+                    this.setAttribute('status', '-1');
+                    parentArticleTypeId = '-1';
+                    getArticleList();
+                    $('#type-ul').html('');
+                    // alert('改编为-1');
+                }
+                if (status == '-1') {
+                    this.setAttribute('status', 0);
+                    parentArticleTypeId = this.getAttribute('typeId');
+                    getArticleType();
+                    getArticleList();
+                }
+                var liArr = $('.typeId');
+                for (var i = 0; i < liArr.length; i++) {
+                    var temp = liArr[i];
+                    if (temp.getAttribute('typeId') == parentArticleTypeId) {
+                        temp.setAttribute("style","background-color: #00CCFF;");
+                    }else {
+                        temp.setAttribute("style","background-color: none;");
+                        temp.setAttribute('status','-1');
+                    }
+                }
+                // alert('改变为0');
+            });
+        }
+        parentArticleTypeId = dom.getAttribute('typeId');
+        getArticleType();
+        getArticleList();
+        var liArr2 = $('.typeId');
+        for (var j = 0; j < liArr2.length; j++) {
+            var temp = liArr2[j];
+            if (temp.getAttribute('typeId') == parentArticleTypeId) {
+                temp.setAttribute('status','0');
+                temp.setAttribute("style","background-color: #00CCFF;");
+            }else {
+                temp.setAttribute("style","background-color: none;");
+                temp.setAttribute('status','-1');
+            }
+        }
+    }
+
+    function getArticleType(){
+        $.ajax({
+            url:articleTypeUrl,
+            type:'GET',
+            data:{
+                parentId:parentArticleTypeId
+            },
+            dataType:'JSON',
+            success:function (data) {
+                if (data.success){
+                    var tempHtml='';
+                    var articleTypeList=data.articleTypeList;
+                    $.each(articleTypeList,function (index,item) {
+                        tempHtml+=' <li><a typeId="'
+                            + item.articleTypeId
+                            + '" status="-1" class="type-id">'
+                            + item.articleTypeName
+                            + '</a></li>';
+                    });
+                    $('#type-ul').html(tempHtml);
+                    $('.type-id').click(function () {
+                        typeClick(this);
+                    });
+                } else{
+                    alert("获取二级文章类型列表失败:"+e.errMsg);
+                }
+            }
+        })
+    }
+
+    function typeClick(dom) {
+        var status=dom.getAttribute('status');
+        if (status=='-1') {
+            dom.setAttribute('status','0');
+            articleTypeId = dom.getAttribute('typeId');
+            getArticleList();
+        }
+        if (status=='0'){
+            articleTypeId='-1';
+            dom.setAttribute('status','-1');
+            getArticleList();
+        }
+        var liArr = $('.type-id');
+        for (var i = 0; i < liArr.length; i++) {
+            var temp = liArr[i];
+            if (temp.getAttribute('typeId') == articleTypeId) {
+                temp.setAttribute("style","background-color: #00CCFF;");
+            }else {
+                temp.setAttribute("style","background-color: none;");
+                temp.setAttribute('status','-1');
+            }
+        }
+    }
+
+    $('#creatime-input').on(" input propertychange",function(){
+        createTime=this.value;
+        getArticleList();
+    });
+    $('#condition-search').on(" input propertychange",function(){
+        keyWord=this.value;
+        getArticleList();
+    });
+    function createTimeClick(dom) {
+        alert(dom.val());
+    }
+    
     function getNoticeList() {
         $.getJSON(noticeListUrl, function (data) {
             if (data.success) {
@@ -127,36 +271,51 @@ $(function () {
     getNoticeList();
 
     function getArticleList() {
-        $.getJSON(articleListUrl, function (data) {
-            if (data.success) {
-                var articleList = data.articleList;
-                var tempHtml = '';
-                $.each(articleList, function (index, item) {
-                    tempHtml += '<div class="article"> <a href="/cdqblog/blogcontent?articleId='
-                        + item.articleId
-                        + '">'
-                        + item.articleTitle
-                        + '</a> </br>  <p style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">'
-                        + item.articleDiscription
-                        + '</p> <div class="article-bottom"><div class="yuan" style="background-color: white"><img src="'
-                        + 'resources/img/weixin.png'
-                        + '"></div><a href="#" style="font-size: 14px">'
-                        + item.user.nickName
-                        + '</a><a style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">'
-                        + item.commentNum
-                        + '</a><a style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">'
-                        + item.goodNum
-                        + '&nbsp; &nbsp;</a></div></div>';
-                });
-                $('#article').html(tempHtml);
-
-            } else {
-                alert("获取文章列表失败，" + data.errMsg);
+        $.ajax({
+            url: articleListUrl,
+            type: 'GET',
+            data: {
+                pageSize: pageSize,
+                pageIndex: pageIndex,
+                sortColumn: sortColumn,
+                ad: ad,
+                createTime: createTime,
+                keyWord: keyWord,
+                parentArticleTypeId: parentArticleTypeId,
+                articleTypeId: articleTypeId
+            },
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.success) {
+                    var articleList = data.articleList;
+                    var tempHtml = '';
+                    $.each(articleList, function (index, item) {
+                        tempHtml += '<div class="article"> <a href="/cdqblog/blogcontent?articleId='
+                            + item.articleId
+                            + '">'
+                            + item.articleTitle
+                            + '</a> </br>  <p style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">'
+                            + item.articleDiscription
+                            + '</p> <div class="article-bottom"><div class="yuan" style="background-color: white"><img src="'
+                            + 'resources/img/weixin.png'
+                            + '"></div><a href="#" style="font-size: 14px">'
+                            + item.user.nickName
+                            + '</a><a style="float: right"> <img src=" resources/img/comment.png" style="width: 20px;height: 20px;">'
+                            + item.commentNum
+                            + '</a><a style="float: right"> <img src=" resources/img/zan.png" style="width: 20px;height: 20px;">'
+                            + item.goodNum
+                            + '&nbsp; &nbsp;</a></div></div>';
+                    });
+                    $('#article').html(tempHtml);
+                } else {
+                    // alert("获取文章列表失败，" + data.errMsg);
+                }
             }
         })
     }
 
     getArticleList();
+
 
     $(".erweima-weixin").hide();
     //支付宝点击事件

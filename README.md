@@ -2,10 +2,12 @@
 
 使用SpringBoot框架整合Redis以及Mybatis开发的博客系统，实现了多用户在线管理博客功能
 
-使用技术：
-&nbsp;  1.SpringBoot
-&nbsp;  2.Redis
-&nbsp;  3.Mybatis
+---
+
+使用技术： <br>
+&nbsp;  1.SpringBoot <br> 
+&nbsp;  2.Redis <br>
+&nbsp;  3.Mybatis <br>
 
 ---
 

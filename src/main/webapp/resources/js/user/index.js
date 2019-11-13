@@ -34,11 +34,11 @@ $(function () {
                 + u.nickName
                 + '</span></a>\n'
                 + '<ul class="dropdown-menu">'
-                + '<li><a href="#">我的关注</a></li>'
-                + '<li><a href="#">我的收藏</a></li>'
-                + '<li><a href="#">个人中心</a></li>'
-                + '<li><a href="#">账号设置</a></li>'
-                + '<li><a href="#">退出登录</a></li>'
+                + '<li><a href="/cdqblog/personinfomanage" data-id="attention">我的关注</a></li>'
+                + '<li><a href="/cdqblog/personinfomanage" data-id="collection">我的收藏</a></li>'
+                + '<li><a href="/cdqblog/personinfomanage" data-id="personinfo">个人中心</a></li>'
+                + '<li><a href="/cdqblog/personinfomanage" data-id="config">账号设置</a></li>'
+                + '<li><a id="logout">退出登录</a></li>'
                 + '</ul></li></ul>';
             $('.user-info').html(tempHtml);
             $('.user-info').show();

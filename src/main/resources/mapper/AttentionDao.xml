@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdq.blog.dao.AttentionDao">
+    <resultMap id="attentionMap" type="com.cdq.blog.model.Attention">
+        <id column="att_id" property="attentionId"></id>
+        <result column="att_attention_create_time" property="attentionCreateTime"></result>
+        <association property="attentionUser" column="attention_user_id" javaType="com.cdq.blog.model.User">
+            <id column="att_attention_user_id" property="userId"></id>
+        </association>
+        <association property="attentedUser" column="attented_user_id" javaType="com.cdq.blog.model.User">
+            <id column="b_user_id" property="userId"></id>
+            <result column="b_nick_name" property="nickName"></result>
+            <result column="b_head_photo" property="userHeadPhoto"></result>
+        </association>
+    </resultMap>
+    <!--根据用户id查询该用户关注列表-->
+    <select id="selectAttention" resultMap="attentionMap">
+      select
+      att.attention_id as att_id,
+      att.attention_user_id as att_attention_user_id,
+      att.attention_create_time as att_attention_create_time,
+      b.user_id as b_user_id,
+      b.nick_name as b_nick_name,
+      b.user_head_photo as b_head_photo
+      from attention as att
+      left join user as b on att.attented_user_id=b.user_id
+      <where>
+          <if test="attention.attentionUser.nickName!=null">
+              and b.nick_name like '%${attention.attentionUser.nickName}%'
+          </if>
+          and att.attention_user_id = #{attention.attentionUser.userId};
+      </where>
+    </select>
+</mapper>

@@ -5,11 +5,21 @@ import java.util.Date;
 public class Attention {
     private Integer attentionId;
 
-    private Integer attentionUserId;
+    private User attentionUser;
 
-    private Integer attentedUserId;
+    private User attentedUser;
 
     private Date attentionCreateTime;
+
+    private short attentionStatus;
+
+    public short getAttentionStatus() {
+        return attentionStatus;
+    }
+
+    public void setAttentionStatus(short attentionStatus) {
+        this.attentionStatus = attentionStatus;
+    }
 
     public Integer getAttentionId() {
         return attentionId;
@@ -19,20 +29,20 @@ public class Attention {
         this.attentionId = attentionId;
     }
 
-    public Integer getAttentionUserId() {
-        return attentionUserId;
+    public User getAttentionUser() {
+        return attentionUser;
     }
 
-    public void setAttentionUserId(Integer attentionUserId) {
-        this.attentionUserId = attentionUserId;
+    public void setAttentionUser(User attentionUser) {
+        this.attentionUser = attentionUser;
     }
 
-    public Integer getAttentedUserId() {
-        return attentedUserId;
+    public User getAttentedUser() {
+        return attentedUser;
     }
 
-    public void setAttentedUserId(Integer attentedUserId) {
-        this.attentedUserId = attentedUserId;
+    public void setAttentedUser(User attentedUser) {
+        this.attentedUser = attentedUser;
     }
 
     public Date getAttentionCreateTime() {
